@@ -1,3 +1,5 @@
+package model;
+
 /* 
  * NotificationObserver.java
  * ENSF 480 - Project
