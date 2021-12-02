@@ -1,3 +1,5 @@
+package model;
+
 /* 
  * Observer.java
  * ENSF 480 - Project
