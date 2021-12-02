@@ -1,3 +1,5 @@
+package model;
+
 /* 
  * Subject.java
  * ENSF 480 - Project
