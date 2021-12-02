@@ -1,7 +1,7 @@
 package model;
 
 /* 
- * Subject.java
+ * Date.java
  * ENSF 480 - Project
  * 
  * John McMurtry 30087058
