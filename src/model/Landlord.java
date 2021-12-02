@@ -1,7 +1,7 @@
 package model;
 
 /* 
- * Subject.java
+ * Landlord.java
  * ENSF 480 - Project
  * 
  * John McMurtry 30087058
