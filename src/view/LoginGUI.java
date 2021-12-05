@@ -12,7 +12,6 @@ import java.awt.event.*;
  * Harrison Mondragon 30088805
  */
 
-
 public class LoginGUI {
 
     private JLabel userLabel;
@@ -29,9 +28,7 @@ public class LoginGUI {
         JPanel panel = new JPanel();
         frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        frame.add(panel);
-        
+        frame.add(panel);   
         panel.setLayout(null);
 
         userLabel = new JLabel("Username:");
