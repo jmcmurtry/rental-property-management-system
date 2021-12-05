@@ -16,15 +16,21 @@ public class Date {
     private int day;
     
     public Date(int y, int m, int d){
+        this.year = y;
+        this.month = m;
+        this.day = d;
     }
 
     public void setYear(int y){
+        this.year = y;
     }
 
     public void setMonth(int m){
+        this.month = m;
     }
 
     public void setDay(int d){
+        this.day = d;
     }
 
     public int getYear(){

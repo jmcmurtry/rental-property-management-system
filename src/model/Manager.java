@@ -13,8 +13,8 @@ package model;
 
 public class Manager extends UserProfile{
 
-    public Manager(String email, String pswd){
-        super(email, pswd);
+    public Manager(String name, String email, String pswd){
+        super(name, email, pswd);
     }
 
     public void changeListingState(String newState, int propertyID){

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class Landlord extends UserProfile{
     ArrayList<Property> properties;
 
-    public Landlord(String email, String pswd){
-        super(email, pswd);
+    public Landlord(String name, String email, String pswd){
+        super(name, email, pswd);
     }
 
     public void addProperty(Property p){
