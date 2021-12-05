@@ -21,21 +21,31 @@ public class Search {
     }
 
     public Search(String type, int bed, int bath, boolean furn, String quad){
+        this.propertyType = type;
+        this.noBed = bed;
+        this.noBath = bath;
+        this.isFurnished = furn;
+        this.quadrant = quad;
     }
 
     public void setType(String type){
+        this.propertyType = type;
     }
 
     public void setBed(int bed){
+        this.noBed = bed;
     }
 
     public void setBath(int bath){
+        this.noBath = bath;
     }
 
     public void setFurnished(boolean furn){
+        this.isFurnished = furn;
     }
 
     public void setQuadrant(String quad){
+        this.quadrant = quad;
     }
 
     public String getType(){
