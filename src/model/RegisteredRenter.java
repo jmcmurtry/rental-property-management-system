@@ -17,9 +17,10 @@ public class RegisteredRenter extends UserProfile implements Subject {
     private ArrayList<Property> filteredProperties;
     private ArrayList<Property> propertiesRented;
 
-    public RegisteredRenter(String email, String pswd){
-        super(email, pswd);
+    public RegisteredRenter(String name, String email, String pswd){
+        super(name, email, pswd);
     }
+    
 
     public void register(Observer o){
         observers.add(o);
