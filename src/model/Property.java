@@ -22,27 +22,40 @@ public class Property {
 
 
     public Property(String type, int bed, int bath, boolean furn, String quad, int ownerid){
+        this.propertyType = type;
+        this.noBed = bed;
+        this.noBath = bath;
+        this.isFurnished = furn;
+        this.quadrant = quad;
+        this.landlordID = ownerid;
     }
 
     public void setType(String type){
+        this.propertyType = type;
     }
 
     public void setBed(int bed){
+        this.noBed = bed;
     }
 
     public void setBath(int bath){
+        this.noBath = bath;
     }
 
     public void setFurnished(boolean furn){
+        this.isFurnished = furn;
     }
 
     public void setQuadrant(String quad){
+        this.quadrant = quad;
     }
 
-    public void changeLandlord(int onwerId){
+    public void changeLandlord(int ownerId){
+        this.landlordID = ownerid;
     }
 
     public void changePayment(Payment newPayment){
+        this.paymentInfo = newPayment;
     }
 
     public String getType(){
