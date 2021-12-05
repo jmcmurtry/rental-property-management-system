@@ -17,19 +17,26 @@ public class UserProfile {
     private String password;
     private Search searchCriteria;
 
-    public UserProfile(String email, String pswd){
+    public UserProfile(String name, String email, String pswd){
+        this.name = name;
+        this.email = email;
+        this.password = pswd;
     }
-
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
     public void setEmail(String email){
+        this.email = email;
     }
 
-    public void setName(String email){
-    }
-
-    public void setPassword(String email){
+    public void setPassword(String pswd){
+        this.password = pswd;
     }
 
     public void setSearch(Search criteria){
+        this.searchCriteria = criteria;
     }
 
     public int getID(){
