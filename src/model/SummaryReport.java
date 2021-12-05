@@ -1,7 +1,7 @@
 
 package model;
 
-class SummaryReport {
+public class SummaryReport {
     private int totalListed;
     private int totalRented;
     private int totalActive;
