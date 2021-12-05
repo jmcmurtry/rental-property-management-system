@@ -21,7 +21,6 @@ public class RegisteredRenter extends UserProfile implements Subject {
         super(name, email, pswd);
     }
     
-
     public void register(Observer o){
         observers.add(o);
         o.update(filteredProperties);
