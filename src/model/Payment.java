@@ -18,15 +18,23 @@ public class Payment {
     private int landlordID;
 
     public Payment(int fee, Date start, Date end, int propertyID, int landlordID){
+        this.fee = fee;
+        this.startDate = start;
+        this.endDate = end;
+        this.registeredPropID = propertyID;
+        this.landlordID = landlordID;
     }
 
     public void setFee(int fee){
+        this.fee = fee;
     }
 
     public void setStartDate(Date start){
+        this.startDate = start;
     }
 
     public void setEndDate(Date end){
+        this.endDate = end;
     }
 
     public int getFee(){
