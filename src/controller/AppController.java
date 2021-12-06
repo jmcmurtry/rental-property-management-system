@@ -14,23 +14,24 @@ import java.sql.*;
 public class AppController{
 
     // database URL
-    private final String DBURL;
+    private final String DBURL = "jdbc:mysql://localhost/property_management";
     
     // database USERNAME
-    private final String USERNAME;
+    private final String USERNAME = "group17";
 
     // database PASSWORD
-    private final String PASSWORD;
+    private final String PASSWORD = "ensf480";
     
     // Connection object
     public Connection dbConnecter;
 
     // Server class's ResultSet object
-    public ResultSet results;
+    // public ResultSet results;
+
+    protected String userTable = "user", propertyTable = "property", paymentTable = "payment", historyTable = "property_history";
 
     private static AppController appInstance = null;
      
-    private AppController(){}
 
     public static AppController getInstance(){
         if(appInstance == null){
@@ -39,7 +40,8 @@ public class AppController{
         return appInstance;
     }
 
-    public void connectDatabase(){
+    public AppController(){
+    // public void connectDatabase(){
         try{
             this.dbConnecter = DriverManager.getConnection(this.DBURL, this.USERNAME, this.PASSWORD);
         }
