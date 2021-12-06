@@ -8,7 +8,7 @@ import java.awt.event.*;
  * 
  * John McMurtry 30087058
  * Athena McNeil-Roberts 30042085
- * Arindam Mishra-30092921
+ * Arindam Mishra 30092921
  * Harrison Mondragon 30088805
  */
 
@@ -84,12 +84,17 @@ public class RegistrationGUI {
                 String name = nameText.getText();
                 String password = String.valueOf(passwordText.getPassword());
                 String confirmPassword = String.valueOf(confirmPasswordText.getPassword());
-                if(password.equals(confirmPassword)){
-                    System.out.println("Passwords Matched");
-                    System.out.println(email + ", " + name + ", " + password + ", " + confirmPassword);
+
+                if(email.isEmpty() || name.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
+                    JOptionPane.showMessageDialog(frame, "One or more fields is empty. Please try again.");
+                }
+                else if(!password.equals(confirmPassword)){
+                    JOptionPane.showMessageDialog(frame, "Passwords do not match. Please try again.");
                 }
                 else{
-                    System.out.println("Passwords do not match, Please try again");
+                    JOptionPane.showMessageDialog(frame, "Registration successful. Please log in now.");
+                    Driver.newRegistrationSubmitted();
+                    frame.dispose();
                 }
             }
         });

@@ -145,7 +145,14 @@ public class LandlordGUI {
         registerPanel.add(rentText);  
 
         submitButton = new JButton("Submit Registration");
-        submitButton.setBounds(300, 260, 200, 25);  
+        submitButton.setBounds(300, 260, 200, 25); 
+        submitButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                Driver.submitPropertyRegistrationPressed();
+                JOptionPane.showMessageDialog(frame, "Property has been successfully registered!");
+                layout.show(panel, "1");
+            }
+        });          
         registerPanel.add(submitButton);      
 
         // intialize the card layout and add panels so that users can move between pages 
