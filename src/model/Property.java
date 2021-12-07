@@ -11,6 +11,7 @@ package model;
  */
 
 public class Property {
+    private String address;
     private String propertyType;
     private int noBed;
     private int noBath;
@@ -19,15 +20,18 @@ public class Property {
     private int landlordID;
     private int id;
     private Payment paymentInfo; 
+    private int rentPrice;
 
 
-    public Property(String type, int bed, int bath, boolean furn, String quad, int ownerid){
+    public Property(String address, String type, int bed, int bath, boolean furn, String quad, int ownerid, int rentPrice){
+        this.address = address;
         this.propertyType = type;
         this.noBed = bed;
         this.noBath = bath;
         this.isFurnished = furn;
         this.quadrant = quad;
         this.landlordID = ownerid;
+        this.rentPrice = rentPrice;
     }
 
     public void setType(String type){
