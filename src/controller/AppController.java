@@ -28,7 +28,7 @@ public class AppController{
     // Server class's ResultSet object
     // public ResultSet results;
 
-    protected String userTable = "user", propertyTable = "property", paymentTable = "payment", historyTable = "property_history";
+    protected String landlordTable = "landlord", managerTable = "manager", renterTable = "renter", propertyTable = "property", statusTable = "property_status";
 
     private static AppController appInstance = null;
      
