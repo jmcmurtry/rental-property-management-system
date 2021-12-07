@@ -22,7 +22,7 @@ public class Property {
     private Payment paymentInfo; 
     private int rentPrice;
 
-
+    
     public Property(String address, String type, int bed, int bath, boolean furn, String quad, int ownerid, int rentPrice){
         this.address = address;
         this.propertyType = type;

@@ -16,8 +16,11 @@ public class UserProfile {
     private String name;
     private String password;
     private Search searchCriteria;
+    public static int idGenerate = 1;
 
     public UserProfile(String name, String email, String pswd){
+        this.userID = idGenerate;
+        idGenerate++;
         this.name = name;
         this.email = email;
         this.password = pswd;

@@ -1,5 +1,7 @@
 package controller;
 import java.sql.*;
+import java.util.ArrayList;
+import model.*;
 
 /* 
  * AppController.java
@@ -28,7 +30,10 @@ public class AppController{
     // Server class's ResultSet object
     // public ResultSet results;
 
-    protected String landlordTable = "landlord", managerTable = "manager", renterTable = "renter", propertyTable = "property", statusTable = "property_status";
+    // protected String landlordTable = "landlord", managerTable = "manager", renterTable = "renter", propertyTable = "property", statusTable = "property_status";
+    protected ArrayList<RegisteredRenter> renters;
+    protected ArrayList<Landlord> landlords;
+    protected ArrayList<Property> properties;
 
     private static AppController appInstance = null;
      
@@ -41,7 +46,6 @@ public class AppController{
     }
 
     public AppController(){
-    // public void connectDatabase(){
         try{
             this.dbConnecter = DriverManager.getConnection(this.DBURL, this.USERNAME, this.PASSWORD);
         }

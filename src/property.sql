@@ -5,51 +5,51 @@ USE PROPERTY;
  DROP TABLE IF EXISTS LANDLORD;
  CREATE TABLE LANDLORD
  (
- LANDLORD_ID varchar(3) NOT NULL,
- NAME varchar(25),
- EMAIL varchar(25),
- PASSWORD char(25),
- PRIMARY KEY (LANDLORD_ID)
+ landlord_id int NOT NULL auto_increment,
+ name varchar(25),
+ email varchar(25),
+ password char(25),
+ PRIMARY KEY (landlord_id)
  );
 
-INSERT INTO LANDLORD (LandLord_ID, Name, Email, Password)
+INSERT INTO LANDLORD (name, email, password)
 VALUES
-('001',	'John Clooney',	 'abc@gmail.com', ' 123'),
-('002',	'Harrison Pitt', 'pqr@gmail.com', 'cat'),
-('003',	'Athena Bond',	 'xyz@gmail.com', 'dog'),
-('004',	'Sarthak Sharan','stv@gmail.com', 'hello'),
-('005',	'Leo Caprio',	 'cry@gmail.com', 'worm');
+('John Clooney', 'abc@gmail.com', ' 123'),
+('Harrison Pitt', 'pqr@gmail.com', 'cat'),
+('Athena Bond','xyz@gmail.com', 'dog'),
+('Sarthak Sharan','stv@gmail.com', 'hello'),
+('Leo Caprio', 'cry@gmail.com', 'worm');
 
 
 DROP TABLE IF EXISTS MANAGER;
  CREATE TABLE MANAGER
  (
- MANAGER_ID varchar(3) NOT NULL,
- NAME varchar(25),
- EMAIL varchar(25),
- PASSWORD char(25),
- PRIMARY KEY (MANAGER_ID)
+ manager_id int NOT NULL auto_increment,
+ name varchar(25),
+ email varchar(25),
+ password char(25),
+ PRIMARY KEY (manager_id)
  );
 
-INSERT INTO MANAGER (Manager_ID, Name, Email, Password)
+INSERT INTO MANAGER (name, email, password)
 VALUES
-('001',	'John Clooney',	 'abc@gmail.com', '123'),
-('002',	'Harrison Pitt', 'pqr@gmail.com', 'cat'),
-('003',	'Athena Bond',	 'xyz@gmail.com', 'dog'),
-('004',	'Sarthak Sharan','stv@gmail.com', 'hello'),
-('005',	'Leo Caprio',	 'cry@gmail.com', 'worm');
+('John Clooney', 'abc@gmail.com', '123'),
+('Harrison Pitt', 'pqr@gmail.com', 'cat'),
+('Athena Bond',	'xyz@gmail.com', 'dog'),
+('Sarthak Sharan','stv@gmail.com', 'hello'),
+('Leo Caprio', 'cry@gmail.com', 'worm');
 
  DROP TABLE IF EXISTS RENTER;
  CREATE TABLE RENTER
  (
- RENTER_ID varchar(3) NOT NULL,
- NAME varchar(25),
- EMAIL varchar(25),
- PASSWORD char(25),
- PRIMARY KEY (RENTER_ID)
+ renter_id varchar(3) NOT NULL,
+ name varchar(25),
+ email varchar(25),
+ password char(25),
+ PRIMARY KEY (renter_id)
  );
  
-INSERT INTO RENTER (Renter_ID, Name, Email, Password)
+INSERT INTO RENTER (renter_id, name, email, password)
 VALUES
 ('001',	'Mike Smith',	 'abc@gmail.com','123'),
 ('002',	'Christie Rhodes', 'pqr@gmail.com','cat'),
@@ -62,21 +62,21 @@ VALUES
  CREATE TABLE PROPERTY
  (
  ID varchar(4) NOT NULL,
- Address varchar(25),
- Type varchar(25),
- DateListed date,
- PaymentExpiry char(7),
- NoOfBedrooms int,
- NoOfBathrooms int,
- Furnishing char(12),
- CityQuadrant char(2),
- Price int,
- LandLordID varchar(3),
+ address varchar(25),
+ type varchar(25),
+ dateListed date,
+ paymentExpiry char(7),
+ noOfBedrooms int,
+ noOfBathrooms int,
+ furnishing char(12),
+ cityQuadrant char(2),
+ price int,
+ landlordID varchar(3),
  PRIMARY KEY (ID),
- FOREIGN KEY (LANDLORDID)references LANDLORD(LANDLORD_ID) on UPDATE CASCADE
+ FOREIGN KEY (landlordID)references LANDLORD(landlord_id) on UPDATE CASCADE
  );
  
-INSERT INTO PROPERTY (ID, Address,Type,DateListed, PaymentExpiry, NoOfBedrooms, NoOfBathrooms, Furnishing, CityQuadrant, Price, LandLordID)
+INSERT INTO PROPERTY (ID, address, type, dateListed, paymentExpiry, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant, price, landLordID)
 VALUES
 ('P100', '12 Sway Street', 'Apartment','2020-12-12','Due', 2,	1,	'Unfurnished',	'NE',	1000,	'001'),
 ('P101','934 Long rd', 'Attached',	'2021-01-13','Paid', 5,	4,	'Furnished',	'NW',	2000,	'003'),
@@ -98,14 +98,14 @@ VALUES
  DROP TABLE IF EXISTS PROPERTY_STATUS;
  CREATE TABLE PROPERTY_STATUS
  (
-  PROPERTY_ID varchar(4) NOT NULL,
-  OldStatus char(12) NOT NULL,
-  NewStatus char(12),
-  DateUpdated date,
-  PRIMARY KEY (PROPERTY_ID),
-  FOREIGN KEY (PROPERTY_ID) references PROPERTY(ID) on UPDATE CASCADE
+  property_id varchar(4) NOT NULL,
+  oldStatus char(12) NOT NULL,
+  newStatus char(12),
+  dateUpdated date,
+  PRIMARY KEY (property_id),
+  FOREIGN KEY (property_id) references PROPERTY(ID) on UPDATE CASCADE
  );
-INSERT INTO PROPERTY_STATUS (PROPERTY_ID, OldStatus, NewStatus, DateUpdated)
+INSERT INTO PROPERTY_STATUS (property_id, oldStatus, newStatus, dateUpdated)
 VALUES
 ('P100','Active',NULL, NULL),
 ('P101','Active',NULL,NULL),
