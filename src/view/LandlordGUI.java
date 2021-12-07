@@ -22,12 +22,11 @@ public class LandlordGUI {
 
     private JPanel menuPanel;
     private JPanel registerPanel;
-    private JPanel searchPanel;
+    private JPanel paymentPanel;
+    private JPanel propertyPanel;
 
     private JLabel welcomeLabel;
     private JButton registerButton;
-    private JButton searchButton;
-
     private JLabel propertyLabel;
     private JLabel addressLabel;
     private JTextField addressText;
@@ -44,6 +43,11 @@ public class LandlordGUI {
     private JLabel rentLabel;
     private JTextField rentText;
     private JButton submitButton;
+    private JButton propertyButton;
+    private JButton paymentButton;
+    private JLabel paymentLabel;
+    private JLabel paymentTitleLabel;
+    private JTextField paymentText;
 
     public LandlordGUI(){
 
@@ -71,9 +75,14 @@ public class LandlordGUI {
         });         
         menuPanel.add(registerButton);  
 
-        searchButton = new JButton("Search Properties");
-        searchButton.setBounds(10, 80, 200, 25);  
-        menuPanel.add(searchButton);   
+        propertyButton = new JButton("Manage Properties");
+        propertyButton.setBounds(10, 80, 200, 25); 
+        propertyButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(panel, "4");
+            }
+        });          
+        menuPanel.add(propertyButton);            
 
         // intializing the property registration panel and adding the necessary components
         registerPanel = new JPanel();
@@ -148,18 +157,63 @@ public class LandlordGUI {
         submitButton.setBounds(300, 260, 200, 25); 
         submitButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                Driver.submitPropertyRegistrationPressed();
-                JOptionPane.showMessageDialog(frame, "Property has been successfully registered!");
-                layout.show(panel, "1");
+                if(addressText.getText().isEmpty() || rentText.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(frame, "One or more fields is empty. Please try again.");
+                }
+                else{
+                    Driver.submitPropertyRegistrationPressed();
+                    JOptionPane.showMessageDialog(frame, "Property has been successfully registered! Click okay to proceed with payment.");
+                    layout.show(panel, "3");
+                }
             }
         });          
-        registerPanel.add(submitButton);      
+        registerPanel.add(submitButton); 
 
-        // intialize the card layout and add panels so that users can move between pages 
+        // initializing the property payment panel and adding necessary components
+
+        paymentPanel = new JPanel();
+        paymentPanel.setLayout(null);
+
+        paymentTitleLabel = new JLabel("Property Registration Payment:");
+        paymentTitleLabel.setBounds(10, 20, 200, 25);
+        paymentPanel.add(paymentTitleLabel);
+
+        paymentLabel = new JLabel("Payment Information:");
+        paymentLabel.setBounds(10, 50, 200, 25);
+        paymentPanel.add(paymentLabel);  
+
+        paymentText = new JTextField(20); 
+        paymentText.setBounds(300, 50, 200, 25);        
+        paymentPanel.add(paymentText); 
+
+        paymentButton = new JButton("Submit Payment");
+        paymentButton.setBounds(320, 80, 160, 25); 
+        paymentButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                if(paymentText.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(frame, "No payment information entered. Please try again.");
+                }
+                else{
+                    Driver.submitPropertyPaymentPressed();
+                    JOptionPane.showMessageDialog(frame, "Fee has been paid and the property listing is now active! Click okay to continue.");
+                    layout.show(panel, "1");
+                }
+            }
+        });          
+        paymentPanel.add(paymentButton);         
+
+        // initializing the manage property panel and adding necessary components
+
+        propertyPanel = new JPanel();
+        propertyPanel.setLayout(null);
+
+        // initialize the card layout and add panels so that users can move between pages 
         layout = new CardLayout();
         panel.setLayout(layout);
         panel.add(menuPanel, "1");
         panel.add(registerPanel, "2");
+        panel.add(paymentPanel, "3");
+        panel.add(propertyPanel, "4");
         layout.show(panel, "1");        
     }
 }
