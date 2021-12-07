@@ -1,5 +1,6 @@
 package view;
 
+import model.UserProfile;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -82,11 +83,11 @@ public class RegistrationGUI {
         registerButton.setBounds(192, 170, 80, 25);
         registerButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                String newUserType = userType.getSelectedItem().toString();
                 String email = emailText.getText();
                 String name = nameText.getText();
                 String password = String.valueOf(passwordText.getPassword());
                 String confirmPassword = String.valueOf(confirmPasswordText.getPassword());
-
                 if(email.isEmpty() || name.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
                     JOptionPane.showMessageDialog(frame, "One or more fields is empty. Please try again.");
                 }
@@ -94,8 +95,9 @@ public class RegistrationGUI {
                     JOptionPane.showMessageDialog(frame, "Passwords do not match. Please try again.");
                 }
                 else{
+                    UserProfile newUser = new UserProfile(name, email, password);
                     JOptionPane.showMessageDialog(frame, "Registration successful. Please log in now.");
-                    Driver.newRegistrationSubmitted();
+                    Driver.newRegistrationSubmitted(newUser, newUserType);
                     frame.dispose();
                 }
             }

@@ -12,7 +12,6 @@ import model.*;
  */
 
 import java.util.ArrayList;
-//import model.Property;
 
 public class App {
  

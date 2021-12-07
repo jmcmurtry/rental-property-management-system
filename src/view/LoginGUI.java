@@ -45,7 +45,7 @@ public class LoginGUI {
         userType.setBounds(100, 20, 200, 25);
         loginPanel.add(userType);        
 
-        userLabel = new JLabel("Username:");
+        userLabel = new JLabel("Email:");
         userLabel.setBounds(10, 50, 80, 25);
         loginPanel.add(userLabel);
 
@@ -65,17 +65,17 @@ public class LoginGUI {
         loginButton.setBounds(100, 110, 90, 25);
         loginButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                String username = usernameText.getText();
+                String email = usernameText.getText();
                 String password = String.valueOf(passwordText.getPassword());
                 String userLoginType = userType.getSelectedItem().toString();
                 Boolean authenticated = false;
-                authenticated = Driver.authenticateLogin(userLoginType, username, password);
+                authenticated = Driver.authenticateLogin(userLoginType, email, password);
                 if(authenticated == true){
                     if(userLoginType.equals("Renter")){
                         Driver.renterLoginButtonPressed();
                     }
                     else if(userLoginType.equals("Landlord")){
-                        Driver.landlordLoginButtonPressed();
+                        Driver.landlordLoginButtonPressed(email);
                     }
                     else if(userLoginType.equals("Manager")){
                         Driver.managerLoginButtonPressed();

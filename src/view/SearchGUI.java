@@ -49,7 +49,6 @@ public class SearchGUI {
         searchLabel.setBounds(10, 20, 200, 25);
         panel.add(searchLabel);
 
-        /////////////////////////////////////////////////////////////property type
         typeOps = new JLabel("Desired property type:");
         typeOps.setBounds(10, 80, 200, 25);
         panel.add(typeOps);
@@ -58,7 +57,6 @@ public class SearchGUI {
         typecb.setBounds(250, 80, 110, 25);
         panel.add(typecb);
 
-        /////////////////////////////////////////////////////////////beds
         bedOps = new JLabel("Desired number of bedrooms:");
         bedOps.setBounds(10, 110, 200, 25);
         panel.add(bedOps);
@@ -67,7 +65,6 @@ public class SearchGUI {
         bedcb.setBounds(250, 110, 110, 25);
         panel.add(bedcb);
 
-        /////////////////////////////////////////////////////////////baths
         bathOps = new JLabel("Desired number of bathrooms:");
         bathOps.setBounds(10, 140, 200, 25);
         panel.add(bathOps);
@@ -76,7 +73,6 @@ public class SearchGUI {
         bathcb.setBounds(250, 140, 110, 25);
         panel.add(bathcb);
 
-        /////////////////////////////////////////////////////////////furnished
         furnOps = new JLabel("Furnished property desired:");
         furnOps.setBounds(10, 170, 200, 25);
         panel.add(furnOps);
@@ -85,7 +81,6 @@ public class SearchGUI {
         furncb.setBounds(250, 170, 110, 25);
         panel.add(furncb);
 
-        /////////////////////////////////////////////////////////////quadrant
         quadOps = new JLabel("Quadrant desired:");
         quadOps.setBounds(10, 200, 200, 25);
         panel.add(quadOps);
@@ -94,7 +89,6 @@ public class SearchGUI {
         quadcb.setBounds(250, 200, 110, 25);
         panel.add(quadcb);
 
-        ///////////////////////////////////////////////////////////////search button
         searchButton = new JButton("Search");
         searchButton.setBounds(175, 230, 80, 25);
 
@@ -105,8 +99,8 @@ public class SearchGUI {
                 String bath = bathcb.getSelectedItem().toString();
                 String furn = furncb.getSelectedItem().toString();
                 String quad = quadcb.getSelectedItem().toString();
-
-                System.out.println(propType +" "+bed+" "+bath+" "+furn+" "+quad);
+                Driver.getSearchResults(propType, bed, bath, furn, quad);
+                frame.dispose();
             }
         });
         panel.add(searchButton);

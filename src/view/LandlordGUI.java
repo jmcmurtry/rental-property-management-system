@@ -1,4 +1,5 @@
 package view;
+import model.Property;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +52,7 @@ public class LandlordGUI {
     private JLabel paymentTitleLabel;
     private JTextField paymentText;
 
-    public LandlordGUI(){
+    public LandlordGUI(int landlordID){
 
         // initialize the JFrame object
         frame.setSize(750, 750);
@@ -163,7 +164,11 @@ public class LandlordGUI {
                     JOptionPane.showMessageDialog(frame, "One or more fields is empty. Please try again.");
                 }
                 else{
-                    Driver.submitPropertyRegistrationPressed();
+                    int ownerID = landlordID;
+                    Property newProperty = new Property(addressText.getText(), typecb.getSelectedItem().toString(), Integer.parseInt(bedcb.getSelectedItem().toString()), 
+                    Integer.parseInt(bathcb.getSelectedItem().toString()), Boolean.parseBoolean(furncb.getSelectedItem().toString()), 
+                    quadcb.getSelectedItem().toString(), ownerID, Integer.parseInt(rentText.getText().toString()));
+                    Driver.submitPropertyRegistrationPressed(newProperty);
                     JOptionPane.showMessageDialog(frame, "Property has been successfully registered! Click okay to proceed with payment.");
                     layout.show(panel, "3");
                 }
