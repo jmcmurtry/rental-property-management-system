@@ -1,3 +1,6 @@
+import view.*;
+import model.*;
+
 /* 
  * App.java
  * ENSF 480 - Project
@@ -8,8 +11,11 @@
  * Harrison Mondragon 30088805
  */
 
-public class App {
+import java.util.ArrayList;
+//import model.Property;
 
+public class App {
+ 
     // main method to run the entire program
     public static void main(String[] args){
         new LoginGUI();

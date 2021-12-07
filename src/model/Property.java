@@ -55,11 +55,15 @@ public class Property {
     }
 
     public void changeLandlord(int ownerId){
-        this.landlordID = ownerid;
+        this.landlordID = ownerId;
     }
 
     public void changePayment(Payment newPayment){
         this.paymentInfo = newPayment;
+    }
+
+    public String getAddress(){
+        return this.address;
     }
 
     public String getType(){
@@ -92,6 +96,10 @@ public class Property {
 
     public Payment getPayment(){
         return this.paymentInfo;
+    }
+
+    public int getRentPrice(){
+        return this.rentPrice;
     }
 
 }

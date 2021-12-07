@@ -1,3 +1,5 @@
+package view;
+
 /* 
  * Driver.java
  * ENSF 480 - Project
