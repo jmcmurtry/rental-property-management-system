@@ -2,6 +2,9 @@ package view;
 import model.*;
 import controller.*;
 
+import java.nio.channels.SeekableByteChannel;
+import java.util.ArrayList;
+
 /* 
  * Driver.java
  * ENSF 480 - Project
@@ -27,10 +30,8 @@ public class Driver {
     public static Boolean authenticateLogin(String userLoginType, String email, String password){
         // needs to communicate with controller then return true if login is valid otherwise return false
         // needs to check database to confirm that the user exists and that the password is correct
-        
-        // UserController uc = new UserController();
-        // return uc.validateUser(userLoginType, email, password);
-        return true; // return value from controller function
+        UserController uc = new UserController();
+        return uc.validateUser(userLoginType, email, password); // return value from controller function
     }
 
     public static void renterLoginButtonPressed(){
@@ -39,9 +40,8 @@ public class Driver {
 
     public static void landlordLoginButtonPressed(String landlordEmail){
         //int landlordID = function that needs to connect with controller/database and return landlord id when given landlord email
-        // UserController uc = new UserController();
-        //int landlordID = uc.getLandlordID(landlordEmail);
-        int landlordID = 1;
+        UserController uc = new UserController();
+        int landlordID = uc.getLandlordID(landlordEmail);
         new LandlordGUI(landlordID);
     }   
     
@@ -59,9 +59,9 @@ public class Driver {
         // takes in a UserProfile object as well as a string to identify the user type
         // String can be "Renter" or "Landlord"
         // connect with database controllers here
-        // UserController uc = new UserController();
+        UserController uc = new UserController();
         // int userID = uc.createUser(newUser, userType);
-        // uc.createUser(newUser, userType);
+        uc.createUser(newUser, userType);
         new LoginGUI();
     }
 
@@ -71,6 +71,8 @@ public class Driver {
         // takes in a property object that will be used to comunicate with database
         // need to implement communication with database
         // listing status will be set to inactive
+        PropertyController pc = new PropertyController();
+        pc.createProperty(newProperty);
     }
 
     public static void submitPropertyPaymentPressed(){
@@ -93,8 +95,10 @@ public class Driver {
         // need to call a function that uses the above parameters
         // function should search through database for properties that match the search query
         // function should then return an ArrayList of type property called PropertyList containing all properties that match search criteria
-        // ArrayList<Property> PropertyList = return value of the function
-        //new SearchResultsGUI(PropertyList);
+        SearchController sc = new SearchController();
+        // sc.performSearch(propertyType, noBeds, noBaths, furnished, quadrant);
+        ArrayList<Property> PropertyList = sc.performSearch(propertyType, noBeds, noBaths, furnished, quadrant);
+        new SearchResultsGUI(PropertyList);
     }
 
     // static functions for manager page

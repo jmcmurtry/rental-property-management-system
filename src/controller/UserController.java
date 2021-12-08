@@ -1,8 +1,8 @@
 package controller;
 
 import java.sql.*;
-
 import model.*;
+import java.util.ArrayList;
 
 public class UserController extends AppController{
     public UserController(){
@@ -11,12 +11,10 @@ public class UserController extends AppController{
 
     public boolean validateUser(String userType, String email, String password){
         try{
-            String query = "SELECT ? FROM ? WHERE email = ? and password = ?";
+            String query = "SELECT " + userType + "_id" + " FROM " + userType + " WHERE email = ? and password = ?";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
-            myStmt.setString(1, userType + "_id");
-            myStmt.setString(2, userType);
-            myStmt.setString(3, email);
-            myStmt.setString(4, password);
+            myStmt.setString(1, email);
+            myStmt.setString(2, password);
             ResultSet results = myStmt.executeQuery();
             if(!results.next()){
                 return false;
@@ -29,15 +27,13 @@ public class UserController extends AppController{
 
     public void createUser(UserProfile newUser, String userType){ // either renter or landlord
         try{
-            String query = "INSERT INTO ? (Name, Email, Password) VALUES(?, ?, ?)";
             // String query = "INSERT INTO ? (Name, Email, Password) VALUES(?, ?, ?) SELECT LAST_INSERT_ID()";
+            String query = "INSERT INTO " + userType + "(name, email, password) VALUES(?, ?, ?)";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
-            myStmt.setString(1, userType);
-            myStmt.setString(2, newUser.getName());
-            myStmt.setString(3, newUser.getEmail());
-            myStmt.setString(4, newUser.getPassword());
-            // myStmt.executeUpdate();
-            myStmt.execute();
+            myStmt.setString(1, newUser.getName());
+            myStmt.setString(2, newUser.getEmail());
+            myStmt.setString(3, newUser.getPassword());
+            myStmt.executeUpdate();
             // ResultSet results = myStmt.executeQuery();
             // ResultSet results = myStmt.getGeneratedKeys();
             myStmt.close();
@@ -76,6 +72,24 @@ public class UserController extends AppController{
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public ArrayList<Property> getLandlordProperties(int userID){
+        ArrayList<Property> properties = new ArrayList<Property>();
+        try{
+            String query = "SELECT * FROM property WHERE landlordID = ?";
+            PreparedStatement myStmt = dbConnecter.prepareStatement(query);
+            myStmt.setString(1, Integer.toString(userID));
+            ResultSet results = myStmt.executeQuery();
+            while(results.next()){
+                properties.add(new Property(results.getString("address"), results.getString("type"), Integer.parseInt(results.getString("noOfBedrooms")), Integer.parseInt(results.getString("noOfBathrooms")), 
+                Boolean.parseBoolean(results.getString("furnishing")), results.getString("cityQuadrant"), Integer.parseInt(results.getString("landlordID")), Integer.parseInt(results.getString("price")) ));
+            }
+            myStmt.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return properties;
     }
 
 }
