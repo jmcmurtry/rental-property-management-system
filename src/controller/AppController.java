@@ -16,7 +16,7 @@ import model.*;
 public class AppController{
 
     // database URL
-    private final String DBURL = "jdbc:mysql://localhost/property_management";
+    private final String DBURL = "jdbc:mysql://localhost/PROPERTY";
     
     // database USERNAME
     private final String USERNAME = "group17";
@@ -27,17 +27,8 @@ public class AppController{
     // Connection object
     public Connection dbConnecter;
 
-    // Server class's ResultSet object
-    // public ResultSet results;
-
-    // protected String landlordTable = "landlord", managerTable = "manager", renterTable = "renter", propertyTable = "property", statusTable = "property_status";
-    protected ArrayList<RegisteredRenter> renters;
-    protected ArrayList<Landlord> landlords;
-    protected ArrayList<Property> properties;
-
     private static AppController appInstance = null;
      
-
     public static AppController getInstance(){
         if(appInstance == null){
             appInstance = new AppController();

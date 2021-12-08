@@ -19,10 +19,10 @@ public class Property {
     private String quadrant;
     private int landlordID;
     private int id;
-    private Payment paymentInfo; 
+    private Date paymentExpiry;
     private int rentPrice;
 
-    
+
     public Property(String address, String type, int bed, int bath, boolean furn, String quad, int ownerid, int rentPrice){
         this.address = address;
         this.propertyType = type;
@@ -58,8 +58,8 @@ public class Property {
         this.landlordID = ownerId;
     }
 
-    public void changePayment(Payment newPayment){
-        this.paymentInfo = newPayment;
+    public void changePaymentExpiry(Date newExpiry){
+        this.paymentExpiry = newExpiry;
     }
 
     public String getAddress(){
@@ -94,8 +94,8 @@ public class Property {
         return this.landlordID;
     }
 
-    public Payment getPayment(){
-        return this.paymentInfo;
+    public Date getPaymentExpiry(){
+        return this.paymentExpiry;
     }
 
     public int getRentPrice(){

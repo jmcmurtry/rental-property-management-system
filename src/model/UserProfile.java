@@ -54,7 +54,7 @@ public class UserProfile {
         return this.name;
     }
 
-    public String getPswd(){
+    public String getPassword(){
         return this.password;
     }
 

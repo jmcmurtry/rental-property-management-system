@@ -1,6 +1,6 @@
 package view;
 import model.*;
-import controller.AppController;
+import controller.*;
 
 /* 
  * Driver.java
@@ -25,6 +25,9 @@ public class Driver {
     public static Boolean authenticateLogin(String userLoginType, String email, String password){
         // needs to communicate with controller then return true if login is valid otherwise return false
         // needs to check database to confirm that the user exists and that the password is correct
+        
+        // UserController uc = new UserController();
+        // return uc.validateUser(userLoginType, email, password);
         return true; // return value from controller function
     }
 
@@ -34,6 +37,8 @@ public class Driver {
 
     public static void landlordLoginButtonPressed(String landlordEmail){
         //int landlordID = function that needs to connect with controller/database and return landlord id when given landlord email
+        // UserController uc = new UserController();
+        // int landlordID = uc.getLandlordID(landlordEmail);
         new LandlordGUI(landlordID);
     }   
     
@@ -51,6 +56,9 @@ public class Driver {
         // takes in a UserProfile object as well as a string to identify the user type
         // String can be "Renter" or "Landlord"
         // connect with database controllers here
+        // UserController uc = new UserController();
+        // int userID = uc.createUser(newUser, userType);
+        // uc.createUser(newUser, userType);
         new LoginGUI();
     }
 

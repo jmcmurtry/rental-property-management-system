@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.*;
+
 import model.*;
 
 public class UserController extends AppController{
@@ -10,7 +11,7 @@ public class UserController extends AppController{
 
     public boolean validateUser(String userType, String email, String password){
         try{
-            String query = "SELECT ? FROM ? WHERE email=? and password = ?";
+            String query = "SELECT ? FROM ? WHERE email = ? and password = ?";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.setString(1, userType + "_id");
             myStmt.setString(2, userType);
@@ -26,86 +27,55 @@ public class UserController extends AppController{
         return true;
     }
 
-    public boolean createUser(String userType, String name, String email, String password){
-        // RegisteredRenter reg = new RegisteredRenter(name, email, password);
+    public void createUser(UserProfile newUser, String userType){ // either renter or landlord
         try{
-            // String query = "INSERT INTO ? (?_id, Name, Email, Password) VALUES(?, ?, ?, ?)";
-            // PreparedStatement myStmt = dbConnecter.prepareStatement(query);
-            // myStmt.setString(1, userType);
-            // myStmt.setString(2, userType);
-            // myStmt.setString(3, idGenerate);
-            // myStmt.setString(4, name);
-            // myStmt.setString(5, email);
-            // myStmt.setString(6, password);
-            // myStmt.executeUpdate();
-            // myStmt.close();
             String query = "INSERT INTO ? (Name, Email, Password) VALUES(?, ?, ?)";
+            // String query = "INSERT INTO ? (Name, Email, Password) VALUES(?, ?, ?) SELECT LAST_INSERT_ID()";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.setString(1, userType);
-            myStmt.setString(2, name);
-            myStmt.setString(3, email);
-            myStmt.setString(4, password);
-            myStmt.executeUpdate();
+            myStmt.setString(2, newUser.getName());
+            myStmt.setString(3, newUser.getEmail());
+            myStmt.setString(4, newUser.getPassword());
+            // myStmt.executeUpdate();
+            myStmt.execute();
+            // ResultSet results = myStmt.executeQuery();
+            // ResultSet results = myStmt.getGeneratedKeys();
             myStmt.close();
+            // return results.getInt(1);
         }catch(Exception e){
             e.printStackTrace();
         }
-        if(userType == "renter"){
-            RegisteredRenter r = new RegisteredRenter(name, email, password);
-            renters.add(r);
-
-        }else if(userType == "landlord"){
-            Landlord l = new Landlord(name, email, password);
-            landlords.add(l);
-        }
-        return true;
+        // return 0; // if failed to create user
     }
+
 
     public boolean removeRenter(int userID){
         try{
-            // just delete renters - if delete a landlord need to remove property
-            String query = "DELETE FROM renter WHERE ID = ?";
+            String query = "DELETE FROM renter WHERE renter_id = ?";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.setString(1, Integer.toString(userID));
             myStmt.executeUpdate();
             myStmt.close();
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
-        for(RegisteredRenter r : renters){
-            if(r.getID()== userID){
-                renters.remove(r);
-            }
-        }
-    
-        return true;
+        return false;
     }
-    // public boolean removeUser(String userType, int userID){
-    //     try{
-    //         // just delete renters - if delete a landlord need to remove property
-    //         String query = "DELETE FROM " + userType + " WHERE ID = ?";
-    //         PreparedStatement myStmt = dbConnecter.prepareStatement(query);
-    //         myStmt.setString(1, Integer.toString(userID));
-    //         myStmt.executeUpdate();
-    //         myStmt.close();
-    //     } catch (SQLException ex) {
-    //         ex.printStackTrace();
-    //     }
-    //     if(userType == "renter"){
-    //         for(RegisteredRenter r : renters){
-    //             if(r.getID()== userID){
-    //                 renters.remove(r);
-    //             }
-    //         }
-    //     }else if(userType == "landlord"){
-    //         for(Landlord l : landlords){
-    //             if(l.getID()== userID){
-    //                 landlords.remove(l);
-    //             }
-    //         }
-    //     }
-    //     return true;
-    // }
+
+    public int getLandlordID(String email){
+        try{
+            String query = "SELECT landlord_id FROM landlord WHERE email = ? ";
+            PreparedStatement myStmt = dbConnecter.prepareStatement(query);
+            myStmt.setString(1, email);
+            ResultSet results = myStmt.executeQuery();
+            if(results.next()){
+                return results.getInt(1);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
 }
