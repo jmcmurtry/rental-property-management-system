@@ -20,7 +20,8 @@ public class Property {
     private int noBath;
     private boolean isFurnished;
     private String quadrant;
-    private LocalDate dateListed = java.time.LocalDate.now();   // Arindam: I'mnot sure if this was the correct way to list the date of PropertyListing
+    long millis = System.currentTimeMillis();
+    private java.sql.Date dateListed = new java.sql.Date(millis);   //Arindam: Not sure if this is the correct way to List the current date 
     private int landlordID;
     private int id;
     private Date paymentExpiry;
@@ -47,7 +48,7 @@ public class Property {
     }
     
     
-    public LocalDate getDateListed() {
+    public java.sql.Date getDateListed() {
     	
     	return this.dateListed;
     }
