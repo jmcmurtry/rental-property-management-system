@@ -1,5 +1,5 @@
 import view.*;
-import model.*;
+import controller.*;
 
 /* 
  * App.java
@@ -10,8 +10,6 @@ import model.*;
  * Arindam Mishra 30092921
  * Harrison Mondragon 30088805
  */
-
-import java.util.ArrayList;
 
 public class App {
  

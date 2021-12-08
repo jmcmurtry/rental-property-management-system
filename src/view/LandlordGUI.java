@@ -1,5 +1,10 @@
 package view;
+
 import model.Property;
+
+
+
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,13 +56,20 @@ public class LandlordGUI {
     private JLabel paymentLabel;
     private JLabel paymentTitleLabel;
     private JTextField paymentText;
+    private JLabel paymentFeeLabel;
+    private JLabel paymentDaysLabel;
+
+    private static String fee;
+    private static String numberOfDays;
 
     public LandlordGUI(int landlordID){
+
+        fee = Driver.getPaymentFee();
+        numberOfDays = Driver.getNumberOfFeeDays();          
 
         // initialize the JFrame object
         frame.setSize(750, 750);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
         frame.add(panel);
         frame.setVisible(true);            
 
@@ -162,15 +174,20 @@ public class LandlordGUI {
             public void actionPerformed(ActionEvent e){
                 if(addressText.getText().isEmpty() || rentText.getText().isEmpty()){
                     JOptionPane.showMessageDialog(frame, "One or more fields is empty. Please try again.");
+                    // need to make sure rent price is an integer here
                 }
                 else{
-                    int ownerID = landlordID;
-                    Property newProperty = new Property(addressText.getText(), typecb.getSelectedItem().toString(), Integer.parseInt(bedcb.getSelectedItem().toString()), 
-                    Integer.parseInt(bathcb.getSelectedItem().toString()), Boolean.parseBoolean(furncb.getSelectedItem().toString()), 
-                    quadcb.getSelectedItem().toString(), ownerID, Integer.parseInt(rentText.getText().toString()));
-                    Driver.submitPropertyRegistrationPressed(newProperty);
-                    JOptionPane.showMessageDialog(frame, "Property has been successfully registered! Click okay to proceed with payment.");
-                    layout.show(panel, "3");
+                    try{
+                        int ownerID = landlordID;
+                        Property newProperty = new Property(addressText.getText(), typecb.getSelectedItem().toString(), Integer.parseInt(bedcb.getSelectedItem().toString()), 
+                        Integer.parseInt(bathcb.getSelectedItem().toString()), Boolean.parseBoolean(furncb.getSelectedItem().toString()), 
+                        quadcb.getSelectedItem().toString(), ownerID, Integer.parseInt(rentText.getText().toString()));
+                        Driver.submitPropertyRegistrationPressed(newProperty);                  
+                        JOptionPane.showMessageDialog(frame, "Property has been successfully registered! Click okay to proceed with payment.");
+                        layout.show(panel, "3"); 
+                    }catch(Exception ex){
+                        JOptionPane.showMessageDialog(frame, "Rent price is not valid. Please try again.");
+                    }
                 }
             }
         });          
@@ -185,16 +202,24 @@ public class LandlordGUI {
         paymentTitleLabel.setBounds(10, 20, 200, 25);
         paymentPanel.add(paymentTitleLabel);
 
+        paymentFeeLabel = new JLabel("Payment Fee: $" + fee);
+        paymentFeeLabel.setBounds(10, 50, 200, 25);
+        paymentPanel.add(paymentFeeLabel);   
+        
+        paymentDaysLabel = new JLabel("Payment is valid for: " + numberOfDays + " days.");
+        paymentDaysLabel.setBounds(10, 80, 200, 25);
+        paymentPanel.add(paymentDaysLabel);            
+
         paymentLabel = new JLabel("Payment Information:");
-        paymentLabel.setBounds(10, 50, 200, 25);
+        paymentLabel.setBounds(10, 110, 200, 25);
         paymentPanel.add(paymentLabel);  
 
         paymentText = new JTextField(20); 
-        paymentText.setBounds(300, 50, 200, 25);        
+        paymentText.setBounds(300, 110, 200, 25);        
         paymentPanel.add(paymentText); 
 
         paymentButton = new JButton("Submit Payment");
-        paymentButton.setBounds(320, 80, 160, 25); 
+        paymentButton.setBounds(320, 140, 160, 25); 
         paymentButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 if(paymentText.getText().isEmpty()){

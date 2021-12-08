@@ -15,6 +15,8 @@ import controller.*;
 public class Driver {
 
     // static AppController theController = AppController.getInstance();
+    private static double fee = 30;
+    private static int numberOfDays = 60;
 
     // static functions for the login page
 
@@ -38,7 +40,8 @@ public class Driver {
     public static void landlordLoginButtonPressed(String landlordEmail){
         //int landlordID = function that needs to connect with controller/database and return landlord id when given landlord email
         // UserController uc = new UserController();
-        // int landlordID = uc.getLandlordID(landlordEmail);
+        //int landlordID = uc.getLandlordID(landlordEmail);
+        int landlordID = 1;
         new LandlordGUI(landlordID);
     }   
     
@@ -76,6 +79,14 @@ public class Driver {
        // need to store the payment information and set the listing status to active
     }
 
+    public static String getPaymentFee(){
+        return String.valueOf(fee);
+    }
+
+    public static String getNumberOfFeeDays(){
+        return String.valueOf(numberOfDays);
+    }
+
     // static functions for search page
 
     public static void getSearchResults(String propertyType, String noBeds, String noBaths, String furnished, String quadrant){
@@ -83,6 +94,16 @@ public class Driver {
         // function should search through database for properties that match the search query
         // function should then return an ArrayList of type property called PropertyList containing all properties that match search criteria
         // ArrayList<Property> PropertyList = return value of the function
-        new SearchResultsGUI(PropertyList);
+        //new SearchResultsGUI(PropertyList);
+    }
+
+    // static functions for manager page
+
+    public static void setPaymentFee(double newFee){
+        fee = newFee;
+    }
+
+    public static void setNumberOfFeeDays(int days){
+        numberOfDays = days;
     }
 }
