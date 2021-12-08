@@ -1,5 +1,8 @@
 package model;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 /* 
  * Property.java
  * ENSF 480 - Project
@@ -17,6 +20,7 @@ public class Property {
     private int noBath;
     private boolean isFurnished;
     private String quadrant;
+    private LocalDate dateListed = java.time.LocalDate.now();   // Arindam: I'mnot sure if this was the correct way to list the date of PropertyListing
     private int landlordID;
     private int id;
     private Date paymentExpiry;
@@ -40,6 +44,12 @@ public class Property {
 
     public void setBed(int bed){
         this.noBed = bed;
+    }
+    
+    
+    public LocalDate getDateListed() {
+    	
+    	return this.dateListed;
     }
 
     public void setBath(int bath){
@@ -103,4 +113,3 @@ public class Property {
     }
 
 }
-
