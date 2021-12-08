@@ -68,10 +68,10 @@ VALUES
  paymentExpiry char(12),
  noOfBedrooms int,
  noOfBathrooms int,
- furnishing char(12),
+ furnishing boolean,
  cityQuadrant char(2),
- price int,
  landlordID int,
+ price int,
  PRIMARY KEY (ID),
  FOREIGN KEY (landlordID)references LANDLORD(landlord_id) on UPDATE CASCADE
  );
