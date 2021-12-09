@@ -29,9 +29,8 @@ public class Driver {
     public static Boolean authenticateLogin(String userLoginType, String email, String password){
         // needs to communicate with controller then return true if login is valid otherwise return false
         // needs to check database to confirm that the user exists and that the password is correct
-        //UserController uc = new UserController();
-        //return uc.validateUser(userLoginType, email, password); // return value from controller function
-        return true;
+        UserController uc = new UserController();
+        return uc.validateUser(userLoginType, email, password); // return value from controller function
     }
 
     public static void renterLoginButtonPressed(){
@@ -40,9 +39,9 @@ public class Driver {
 
     public static void landlordLoginButtonPressed(String landlordEmail){
         //int landlordID = function that needs to connect with controller/database and return landlord id when given landlord email
-        // UserController uc = new UserController();
-        // int landlordID = uc.getLandlordID(landlordEmail);
-        new LandlordGUI(1);
+        UserController uc = new UserController();
+        int landlordID = uc.getLandlordID(landlordEmail);
+        new LandlordGUI(landlordID);
     }   
     
     public static void managerLoginButtonPressed(){
