@@ -27,21 +27,16 @@ public class UserController extends AppController{
 
     public void createUser(UserProfile newUser, String userType){ // either renter or landlord
         try{
-            // String query = "INSERT INTO ? (Name, Email, Password) VALUES(?, ?, ?) SELECT LAST_INSERT_ID()";
             String query = "INSERT INTO " + userType + "(name, email, password) VALUES(?, ?, ?)";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.setString(1, newUser.getName());
             myStmt.setString(2, newUser.getEmail());
             myStmt.setString(3, newUser.getPassword());
             myStmt.executeUpdate();
-            // ResultSet results = myStmt.executeQuery();
-            // ResultSet results = myStmt.getGeneratedKeys();
             myStmt.close();
-            // return results.getInt(1);
         }catch(Exception e){
             e.printStackTrace();
         }
-        // return 0; // if failed to create user
     }
 
 

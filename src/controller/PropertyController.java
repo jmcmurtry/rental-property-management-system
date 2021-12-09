@@ -69,8 +69,4 @@ public class PropertyController extends AppController{
         }
         return false;
     }
-
-
-	
-	
 }

@@ -31,5 +31,4 @@ public class PaymentController extends AppController{
 			e.printStackTrace();
 		}  
     }
-    
 }

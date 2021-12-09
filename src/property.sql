@@ -9,7 +9,8 @@ USE PROPERTY_MANAGEMENT;
  name varchar(25),
  email varchar(25),
  password char(25),
- PRIMARY KEY (landlord_id)
+ PRIMARY KEY (landlord_id),
+ CONSTRAINT unique_email UNIQUE (email)
  );
 
 
@@ -20,7 +21,8 @@ USE PROPERTY_MANAGEMENT;
  name varchar(25),
  email varchar(25),
  password char(25),
- PRIMARY KEY (manager_id)
+ PRIMARY KEY (manager_id),
+ CONSTRAINT unique_email UNIQUE (email)
  );
 
 INSERT INTO Manager (name, email, password)
@@ -39,7 +41,8 @@ VALUES
  name varchar(25),
  email varchar(25),
  password char(25),
- PRIMARY KEY (renter_id)
+ PRIMARY KEY (renter_id),
+ CONSTRAINT unique_email UNIQUE (email)
  );
 
 
@@ -56,7 +59,7 @@ VALUES
  furnishing boolean,
  cityQuadrant char(2),
  price int,
- landlordID int,
+ landlordID int NOT NULL,
  PRIMARY KEY (ID),
  FOREIGN KEY (landlordID)references LANDLORD(landlord_id) on UPDATE CASCADE
  );
@@ -79,4 +82,3 @@ VALUES
   numDays int NOT NULL,
   PRIMARY KEY (id)
  );
-

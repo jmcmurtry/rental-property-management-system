@@ -59,7 +59,6 @@ public class Driver {
         // String can be "Renter" or "Landlord"
         // connect with database controllers here
         UserController uc = new UserController();
-        // int userID = uc.createUser(newUser, userType);
         uc.createUser(newUser, userType);
         new LoginGUI();
     }
@@ -79,6 +78,11 @@ public class Driver {
        // need to implement communication with database 
        // will take in a property object and payment object
        // need to store the payment information and set the listing status to active
+        PropertyController pc = new PropertyController();
+        pc.changeStatus(propertyID, "Active");
+        java.time.LocalDate today =  java.time.LocalDate.now().plusDays(60);
+        java.sql.Date date = java.sql.Date.valueOf(today.toString());
+        pc.changePaymentExpiry(propertyID, date);
     }
 
     public static void managePropertiesButtonPressed(int landlordID){
@@ -106,7 +110,6 @@ public class Driver {
         // function should search through database for properties that match the search query
         // function should then return an ArrayList of type property called PropertyList containing all properties that match search criteria
         SearchController sc = new SearchController();
-        // sc.performSearch(propertyType, noBeds, noBaths, furnished, quadrant);
         ArrayList<Property> PropertyList = sc.performSearch(propertyType, noBeds, noBaths, furnished, quadrant);
         new SearchResultsGUI(PropertyList);
     }
@@ -115,6 +118,7 @@ public class Driver {
 
     public static void setPaymentFee(double newFee){
         fee = newFee;
+        // setFeeInfo()
     }
 
     public static void setNumberOfFeeDays(int days){
