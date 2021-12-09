@@ -2,8 +2,6 @@ package view;
 
 import model.*;
 import controller.*;
-
-import java.nio.channels.SeekableByteChannel;
 import java.util.ArrayList;
 
 /* 
@@ -84,9 +82,15 @@ public class Driver {
        // need to store the payment information and set the listing status to active
     }
 
-    // public static ArrayList<Property> managePropertiesButtonPressed(int landlordID){
-    //     // returns an array list of property objects that the landlord owns
-    // }
+    public static void managePropertiesButtonPressed(int landlordID){
+        // grabs array list of properties from database based on landlord id
+        ArrayList<Property> test = new ArrayList<Property>();
+        new LandlordPropertiesGUI(test, landlordID);
+    }
+
+    public static void backToLandlordMenu(int landlordID){
+        new LandlordGUI(landlordID);
+    }
 
     public static String getPaymentFee(){
         return String.valueOf(fee);

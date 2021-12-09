@@ -24,14 +24,13 @@ public class LandlordGUI {
     private CardLayout layout;
     private JFrame frame = new JFrame("Landlord Menu");
     private JPanel panel = new JPanel();
-    private JTable table;
 
     private JPanel menuPanel, registerPanel, paymentPanel;
 
     private JLabel welcomeLabel, propertyLabel, addressLabel, typeOps, bedOps, bathOps, furnOps, quadOps, rentLabel, paymentIDLabel;
     private JLabel paymentLabel, paymentTitleLabel, paymentFeeLabel, paymentDaysLabel, paymentRegistrationLabel, paymentRegistrationFeeLabel;
 
-    private JButton registerButton, submitButton, propertyButton, paymentButton, paymentMenuButton;
+    private JButton registerButton, submitButton, propertyButton, paymentButton, paymentMenuButton, backButton1, backButton2, backButton3;
 
     private JTextField addressText, rentText, paymentText, paymentRegistrationText, paymentIDText;
 
@@ -39,12 +38,11 @@ public class LandlordGUI {
 
     private static String fee;
     private static String numberOfDays;
-    private ArrayList<Property> landlordProperties;
 
     public LandlordGUI(int landlordID){
 
         fee = Driver.getPaymentFee();
-        numberOfDays = Driver.getNumberOfFeeDays();          
+        numberOfDays = Driver.getNumberOfFeeDays();      
 
         // initialize the JFrame object
         frame.setSize(750, 750);
@@ -82,8 +80,7 @@ public class LandlordGUI {
         propertyButton.setBounds(10, 110, 200, 25); 
         propertyButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                //landlordProperties = Driver.managePropertiesButtonPressed(landlordID);
-                displayLandlordProperties(landlordProperties);
+                Driver.managePropertiesButtonPressed(landlordID);
                 frame.dispose();
             }
         });          
@@ -201,6 +198,15 @@ public class LandlordGUI {
         });          
         registerPanel.add(submitButton); 
 
+        backButton1 = new JButton("Back to menu");
+        backButton1.setBounds(30, 400, 150, 25);
+        backButton1.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(panel, "1");
+            }
+        });
+        registerPanel.add(backButton1);
+
         // initializing the property payment panel and adding necessary components
 
         paymentPanel = new JPanel();
@@ -257,7 +263,16 @@ public class LandlordGUI {
                 }
             }
         });          
-        paymentPanel.add(paymentButton);         
+        paymentPanel.add(paymentButton);   
+        
+        backButton2 = new JButton("Back to menu");
+        backButton2.setBounds(30, 400, 150, 25);
+        backButton2.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(panel, "1");
+            }
+        });
+        paymentPanel.add(backButton2);        
 
         // initialize the card layout and add panels so that users can move between pages 
         layout = new CardLayout();
@@ -266,45 +281,5 @@ public class LandlordGUI {
         panel.add(registerPanel, "2");
         panel.add(paymentPanel, "3");
         layout.show(panel, "1");        
-    }
-
-    public void displayLandlordProperties(ArrayList<Property> landlordProperties){
-
-        frame = new JFrame();
-
-        Object[][] data = new Object[landlordProperties.size()][9];
-
-        for(int i = 0; i < landlordProperties.size(); i++){
-          int j = 0;
-          data[i][j] = landlordProperties.get(i).getID();
-          j++;
-          data[i][j] = landlordProperties.get(i).getStatus();
-          j++;          
-          data[i][j] = landlordProperties.get(i).getAddress();
-          j++;
-          data[i][j] = landlordProperties.get(i).getType();
-          j++;
-          data[i][j] = landlordProperties.get(i).getBed();
-          j++;
-          data[i][j] = landlordProperties.get(i).getBath();
-          j++;
-          data[i][j] = landlordProperties.get(i).getFurnished();
-          j++;
-          data[i][j] = landlordProperties.get(i).getQuadrant();
-          j++;
-          data[i][j] = landlordProperties.get(i).getRentPrice();
-        }
-
-        String[] cNames = {"Property ID", "Status", "Address", "Property Type", "Beds", "Baths", "Funished?", "Quadrant", "Rent Price ($)"};
-          
-        table = new JTable(data, cNames);
-        table.setBounds(30, 40, 200, 300);
-
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        frame.add(scrollPane);
-        frame.setSize(750, 750);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);             
     }
 }
