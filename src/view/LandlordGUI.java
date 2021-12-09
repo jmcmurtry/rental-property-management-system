@@ -1,14 +1,12 @@
 package view;
 
 import model.Property;
-
-
-
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /* 
  * LandlordGUI.java
@@ -27,40 +25,22 @@ public class LandlordGUI {
 
     private JFrame frame = new JFrame("Landlord Menu");
     private JPanel panel = new JPanel();
+    private JTable table;
 
-    private JPanel menuPanel;
-    private JPanel registerPanel;
-    private JPanel paymentPanel;
-    private JPanel propertyPanel;
+    private JPanel menuPanel, registerPanel, paymentPanel;
 
-    private JLabel welcomeLabel;
-    private JButton registerButton;
-    private JLabel propertyLabel;
-    private JLabel addressLabel;
-    private JTextField addressText;
-    private JLabel typeOps;
-    private JComboBox typecb;
-    private JLabel bedOps;
-    private JComboBox bedcb;
-    private JLabel bathOps;
-    private JComboBox bathcb;
-    private JLabel furnOps;
-    private JComboBox furncb;
-    private JLabel quadOps;
-    private JComboBox quadcb;
-    private JLabel rentLabel;
-    private JTextField rentText;
-    private JButton submitButton;
-    private JButton propertyButton;
-    private JButton paymentButton;
-    private JLabel paymentLabel;
-    private JLabel paymentTitleLabel;
-    private JTextField paymentText;
-    private JLabel paymentFeeLabel;
-    private JLabel paymentDaysLabel;
+    private JLabel welcomeLabel, propertyLabel, addressLabel, typeOps, bedOps, bathOps, furnOps, quadOps, rentLabel, paymentIDLabel;
+    private JLabel paymentLabel, paymentTitleLabel, paymentFeeLabel, paymentDaysLabel, paymentRegistrationLabel, paymentRegistrationFeeLabel;
+
+    private JButton registerButton, submitButton, propertyButton, paymentButton, paymentMenuButton;
+
+    private JTextField addressText, rentText, paymentText, paymentRegistrationText, paymentIDText;
+
+    private JComboBox typecb, bedcb, bathcb, furncb, quadcb;
 
     private static String fee;
     private static String numberOfDays;
+    private ArrayList<Property> landlordProperties;
 
     public LandlordGUI(int landlordID){
 
@@ -87,14 +67,25 @@ public class LandlordGUI {
             public void actionPerformed(ActionEvent e){
                 layout.show(panel, "2");
             }
-        });         
-        menuPanel.add(registerButton);  
+        });  
+        menuPanel.add(registerButton);   
+        
+        paymentMenuButton = new JButton("Renew Payment");
+        paymentMenuButton.setBounds(10, 80, 200, 25); 
+        paymentMenuButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(panel, "3");
+            }
+        });
+        menuPanel.add(paymentMenuButton);  
 
         propertyButton = new JButton("Manage Properties");
-        propertyButton.setBounds(10, 80, 200, 25); 
+        propertyButton.setBounds(10, 110, 200, 25); 
         propertyButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                layout.show(panel, "4");
+                //landlordProperties = Driver.managePropertiesButtonPressed(landlordID);
+                displayLandlordProperties(landlordProperties);
+                frame.dispose();
             }
         });          
         menuPanel.add(propertyButton);            
@@ -103,12 +94,12 @@ public class LandlordGUI {
         registerPanel = new JPanel();
         registerPanel.setLayout(null);
 
-        String[] bedBathOptions = {"1", "2", "3", "4", "4+"};
+        String[] bedBathOptions = {"1", "2", "3", "4", "5", "6"};
         String[] propertyTypeOptions = {"Apartment", "House", "Townhouse"};
         String[] furnishedOptions = {"Yes", "No"};
         String[] quadrantOptions = {"NW", "NE", "SW", "SE"};
         
-        propertyLabel = new JLabel("New Property Registration");
+        propertyLabel = new JLabel("New Property Registration:");
         propertyLabel.setBounds(10, 20, 200, 25);
         registerPanel.add(propertyLabel);
 
@@ -168,23 +159,41 @@ public class LandlordGUI {
         rentText.setBounds(250, 230, 300, 25);
         registerPanel.add(rentText);  
 
-        submitButton = new JButton("Submit Registration");
-        submitButton.setBounds(300, 260, 200, 25); 
+        paymentRegistrationLabel = new JLabel("Payment Information: A payment fee of $" + fee + " is required and will be valid for " + numberOfDays + " days.");
+        paymentRegistrationLabel.setBounds(10, 290, 600, 25);
+        registerPanel.add(paymentRegistrationLabel);  
+
+        paymentRegistrationFeeLabel = new JLabel("Payment Information:");
+        paymentRegistrationFeeLabel.setBounds(10, 320, 200, 25);
+        registerPanel.add(paymentRegistrationLabel); 
+        
+        paymentRegistrationText = new JTextField(20); 
+        paymentRegistrationText.setBounds(250, 320, 300, 25);        
+        registerPanel.add(paymentRegistrationText); 
+
+        submitButton = new JButton("Submit Registration and Payment");
+        submitButton.setBounds(250, 380, 300, 25); 
         submitButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if(addressText.getText().isEmpty() || rentText.getText().isEmpty()){
+                if(addressText.getText().isEmpty() || rentText.getText().isEmpty() || paymentRegistrationText.getText().isEmpty()){
                     JOptionPane.showMessageDialog(frame, "One or more fields is empty. Please try again.");
-                    // need to make sure rent price is an integer here
                 }
                 else{
                     try{
+                        LocalDate c = LocalDate.now().plusDays(Long.valueOf(numberOfDays));
+                        Date expiryDate = Date.valueOf(c.toString());
                         int ownerID = landlordID;
+                        int rentPrice = Integer.parseInt(rentText.getText().toString());
+                        if(rentPrice < 0){
+                            JOptionPane.showMessageDialog(frame, "Rent price is not valid. Please try again.");
+                            return;
+                        }
                         Property newProperty = new Property(addressText.getText(), typecb.getSelectedItem().toString(), Integer.parseInt(bedcb.getSelectedItem().toString()), 
                         Integer.parseInt(bathcb.getSelectedItem().toString()), Boolean.parseBoolean(furncb.getSelectedItem().toString()), 
-                        quadcb.getSelectedItem().toString(), ownerID, Integer.parseInt(rentText.getText().toString()));
+                        quadcb.getSelectedItem().toString(), ownerID, rentPrice, expiryDate, "Active");
                         Driver.submitPropertyRegistrationPressed(newProperty);                  
-                        JOptionPane.showMessageDialog(frame, "Property has been successfully registered! Click okay to proceed with payment.");
-                        layout.show(panel, "3"); 
+                        JOptionPane.showMessageDialog(frame, "Property has been successfully registered and payment has been processed!");
+                        layout.show(panel, "1"); 
                     }catch(Exception ex){
                         JOptionPane.showMessageDialog(frame, "Rent price is not valid. Please try again.");
                     }
@@ -198,7 +207,7 @@ public class LandlordGUI {
         paymentPanel = new JPanel();
         paymentPanel.setLayout(null);
 
-        paymentTitleLabel = new JLabel("Property Registration Payment:");
+        paymentTitleLabel = new JLabel("Renew Property Payment:");
         paymentTitleLabel.setBounds(10, 20, 200, 25);
         paymentPanel.add(paymentTitleLabel);
 
@@ -208,36 +217,48 @@ public class LandlordGUI {
         
         paymentDaysLabel = new JLabel("Payment is valid for: " + numberOfDays + " days.");
         paymentDaysLabel.setBounds(10, 80, 200, 25);
-        paymentPanel.add(paymentDaysLabel);            
+        paymentPanel.add(paymentDaysLabel);   
+
+        paymentIDLabel = new JLabel("Property ID for Renewal:");
+        paymentIDLabel.setBounds(10, 110, 200, 25);
+        paymentPanel.add(paymentIDLabel);    
+        
+        paymentIDText = new JTextField(20); 
+        paymentIDText.setBounds(300, 110, 200, 25);        
+        paymentPanel.add(paymentIDText);          
 
         paymentLabel = new JLabel("Payment Information:");
-        paymentLabel.setBounds(10, 110, 200, 25);
+        paymentLabel.setBounds(10, 140, 200, 25);
         paymentPanel.add(paymentLabel);  
 
         paymentText = new JTextField(20); 
-        paymentText.setBounds(300, 110, 200, 25);        
-        paymentPanel.add(paymentText); 
+        paymentText.setBounds(300, 140, 200, 25);        
+        paymentPanel.add(paymentText);  
 
-        paymentButton = new JButton("Submit Payment");
-        paymentButton.setBounds(320, 140, 160, 25); 
+        paymentButton = new JButton("Submit Payment Renewal");
+        paymentButton.setBounds(320, 170, 160, 25); 
         paymentButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if(paymentText.getText().isEmpty()){
-                    JOptionPane.showMessageDialog(frame, "No payment information entered. Please try again.");
+                if(paymentText.getText().isEmpty() || paymentIDText.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(frame, "One or more fields is empty. Please try again.");
                 }
                 else{
-                    Driver.submitPropertyPaymentPressed();
-                    JOptionPane.showMessageDialog(frame, "Fee has been paid and the property listing is now active! Click okay to continue.");
-                    layout.show(panel, "1");
+                    try{
+                        int propertyID = Integer.parseInt(paymentIDText.getText().toString());
+                        if(propertyID < 0){
+                            JOptionPane.showMessageDialog(frame, "PropertyID was not valid. Please try again.");
+                            return;
+                        }
+                        Driver.submitPropertyRenewalPaymentPressed(propertyID);
+                        JOptionPane.showMessageDialog(frame, "Renewal fee has been paid and the property listing is now active! Click okay to continue.");
+                        layout.show(panel, "1");
+                    }catch(Exception ex){
+                        JOptionPane.showMessageDialog(frame, "PropertyID was not valid. Please try again.");
+                    }
                 }
             }
         });          
         paymentPanel.add(paymentButton);         
-
-        // initializing the manage property panel and adding necessary components
-
-        propertyPanel = new JPanel();
-        propertyPanel.setLayout(null);
 
         // initialize the card layout and add panels so that users can move between pages 
         layout = new CardLayout();
@@ -245,7 +266,46 @@ public class LandlordGUI {
         panel.add(menuPanel, "1");
         panel.add(registerPanel, "2");
         panel.add(paymentPanel, "3");
-        panel.add(propertyPanel, "4");
         layout.show(panel, "1");        
+    }
+
+    public void displayLandlordProperties(ArrayList<Property> landlordProperties){
+
+        frame = new JFrame();
+
+        Object[][] data = new Object[landlordProperties.size()][9];
+
+        for(int i = 0; i < landlordProperties.size(); i++){
+          int j = 0;
+          data[i][j] = landlordProperties.get(i).getID();
+          j++;
+          data[i][j] = landlordProperties.get(i).getStatus();
+          j++;          
+          data[i][j] = landlordProperties.get(i).getAddress();
+          j++;
+          data[i][j] = landlordProperties.get(i).getType();
+          j++;
+          data[i][j] = landlordProperties.get(i).getBed();
+          j++;
+          data[i][j] = landlordProperties.get(i).getBath();
+          j++;
+          data[i][j] = landlordProperties.get(i).getFurnished();
+          j++;
+          data[i][j] = landlordProperties.get(i).getQuadrant();
+          j++;
+          data[i][j] = landlordProperties.get(i).getRentPrice();
+        }
+
+        String[] cNames = {"Property ID", "Status", "Address", "Property Type", "Beds", "Baths", "Funished?", "Quadrant", "Rent Price ($)"};
+          
+        table = new JTable(data, cNames);
+        table.setBounds(30, 40, 200, 300);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        frame.add(scrollPane);
+        frame.setSize(750, 750);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);             
     }
 }

@@ -30,8 +30,9 @@ public class Driver {
     public static Boolean authenticateLogin(String userLoginType, String email, String password){
         // needs to communicate with controller then return true if login is valid otherwise return false
         // needs to check database to confirm that the user exists and that the password is correct
-        UserController uc = new UserController();
-        return uc.validateUser(userLoginType, email, password); // return value from controller function
+        //UserController uc = new UserController();
+        //return uc.validateUser(userLoginType, email, password); // return value from controller function
+        return true;
     }
 
     public static void renterLoginButtonPressed(){
@@ -40,9 +41,9 @@ public class Driver {
 
     public static void landlordLoginButtonPressed(String landlordEmail){
         //int landlordID = function that needs to connect with controller/database and return landlord id when given landlord email
-        UserController uc = new UserController();
-        int landlordID = uc.getLandlordID(landlordEmail);
-        new LandlordGUI(landlordID);
+        // UserController uc = new UserController();
+        // int landlordID = uc.getLandlordID(landlordEmail);
+        new LandlordGUI(1);
     }   
     
     public static void managerLoginButtonPressed(){
@@ -75,11 +76,16 @@ public class Driver {
         pc.createProperty(newProperty);
     }
 
-    public static void submitPropertyPaymentPressed(){
+    public static void submitPropertyRenewalPaymentPressed(int propertyID){
+        // passes in property id - database updates status to listed
        // need to implement communication with database 
        // will take in a property object and payment object
        // need to store the payment information and set the listing status to active
     }
+
+    // public static ArrayList<Property> managePropertiesButtonPressed(int landlordID){
+    //     // returns an array list of property objects that the landlord owns
+    // }
 
     public static String getPaymentFee(){
         return String.valueOf(fee);
