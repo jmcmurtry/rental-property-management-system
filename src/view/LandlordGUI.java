@@ -22,7 +22,6 @@ public class LandlordGUI {
 
     // private member variables to hold landlord GUI components
     private CardLayout layout;
-
     private JFrame frame = new JFrame("Landlord Menu");
     private JPanel panel = new JPanel();
     private JTable table;

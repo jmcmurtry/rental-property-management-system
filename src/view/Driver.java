@@ -1,4 +1,5 @@
 package view;
+
 import model.*;
 import controller.*;
 
@@ -47,7 +48,7 @@ public class Driver {
     }   
     
     public static void managerLoginButtonPressed(){
-        // new ManagerGUI();
+        new ManagerGUI();
     }    
 
     public static void guestButtonPressed(){
