@@ -66,6 +66,10 @@ public class Property {
         this.paymentExpiry = newExpiry;
     }
 
+    public void setStatus(String status){
+        this.propertyStatus = status;
+    }
+
     public String getAddress(){
         return this.address;
     }
@@ -109,9 +113,4 @@ public class Property {
     public String getStatus(){
         return this.propertyStatus;
     }
-
-    public void setStatus(String status){
-        this.propertyStatus = status;
-    }
-
 }
