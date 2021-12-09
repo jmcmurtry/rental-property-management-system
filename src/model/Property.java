@@ -20,11 +20,10 @@ public class Property {
     private int noBath;
     private boolean isFurnished;
     private String quadrant;
-    long millis = System.currentTimeMillis();
-    private java.sql.Date dateListed = new java.sql.Date(millis);   //Arindam: Not sure if this is the correct way to List the current date 
+    // long millis = System.currentTimeMillis();
     private int landlordID;
     private int id;
-    private Date paymentExpiry;
+    private java.sql.Date paymentExpiry;
     private int rentPrice;
 
 
@@ -46,12 +45,6 @@ public class Property {
     public void setBed(int bed){
         this.noBed = bed;
     }
-    
-    
-    public java.sql.Date getDateListed() {
-    	
-    	return this.dateListed;
-    }
 
     public void setBath(int bath){
         this.noBath = bath;
@@ -69,7 +62,7 @@ public class Property {
         this.landlordID = ownerId;
     }
 
-    public void changePaymentExpiry(Date newExpiry){
+    public void changePaymentExpiry(java.sql.Date newExpiry){
         this.paymentExpiry = newExpiry;
     }
 
@@ -105,7 +98,7 @@ public class Property {
         return this.landlordID;
     }
 
-    public Date getPaymentExpiry(){
+    public java.sql.Date getPaymentExpiry(){
         return this.paymentExpiry;
     }
 

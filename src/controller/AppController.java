@@ -16,7 +16,7 @@ import model.*;
 public class AppController{
 
     // database URL
-    private final String DBURL = "jdbc:mysql://localhost/PROPERTY";
+    private final String DBURL = "jdbc:mysql://localhost/PROPERTY_MANAGEMENT";
     
     // database USERNAME
     private final String USERNAME = "group17";
