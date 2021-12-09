@@ -1,7 +1,6 @@
 package model;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 
 /* 
  * Property.java
@@ -14,20 +13,19 @@ import java.util.Date;
  */
 
 public class Property {
+    private int id;
     private String address;
     private String propertyType;
     private int noBed;
     private int noBath;
     private boolean isFurnished;
-    private String quadrant;
-    // long millis = System.currentTimeMillis();
+    private String quadrant; 
     private int landlordID;
-    private int id;
-    private java.sql.Date paymentExpiry;
     private int rentPrice;
+    private Date paymentExpiry;
+    private String propertyStatus;
 
-
-    public Property(String address, String type, int bed, int bath, boolean furn, String quad, int ownerid, int rentPrice){
+    public Property(String address, String type, int bed, int bath, boolean furn, String quad, int ownerid, int rentPrice, Date expiryDate, String status){
         this.address = address;
         this.propertyType = type;
         this.noBed = bed;
@@ -36,6 +34,8 @@ public class Property {
         this.quadrant = quad;
         this.landlordID = ownerid;
         this.rentPrice = rentPrice;
+        this.paymentExpiry = expiryDate;
+        this.propertyStatus = status;
     }
 
     public void setType(String type){
@@ -45,7 +45,7 @@ public class Property {
     public void setBed(int bed){
         this.noBed = bed;
     }
-
+    
     public void setBath(int bath){
         this.noBath = bath;
     }
@@ -62,7 +62,7 @@ public class Property {
         this.landlordID = ownerId;
     }
 
-    public void changePaymentExpiry(java.sql.Date newExpiry){
+    public void changePaymentExpiry(Date newExpiry){
         this.paymentExpiry = newExpiry;
     }
 
@@ -98,12 +98,20 @@ public class Property {
         return this.landlordID;
     }
 
-    public java.sql.Date getPaymentExpiry(){
+    public Date getPaymentExpiry(){
         return this.paymentExpiry;
     }
 
     public int getRentPrice(){
         return this.rentPrice;
+    }
+
+    public String getStatus(){
+        return this.propertyStatus;
+    }
+
+    public void setStatus(String status){
+        this.propertyStatus = status;
     }
 
 }
