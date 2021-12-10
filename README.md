@@ -9,6 +9,7 @@ Harrison Mondragon <br />
 ## Problem Description
 Let’s assume you have been hired by a company to analyse, design, and develop an online Property Rental
 Management System (PRMS) that its minimal requirements include:
+
 • RQ1: Landlords should be able to register their properties using this online application. Once their property
 is registered they should be able to pay certain fee and make their property posted online and be available ro
 renters to view it. The fee is certain amount in dollars for a fixed period of time (example 60 days).
