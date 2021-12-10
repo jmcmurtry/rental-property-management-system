@@ -4,10 +4,18 @@ import java.sql.*;
 import model.*;
 import java.util.ArrayList;
 public class SummaryReportController extends AppController{
+    
+    /**
+    * Constructor - allows access to database
+    */
     public SummaryReportController(){
         super();
     }
 
+    /**
+    * Retrieves the total number of properties in the database
+    * @return : returns an int of all listed
+    */
     public int getTotalListed(){
         int totalListed = 0;
         try{
@@ -24,7 +32,10 @@ public class SummaryReportController extends AppController{
         return totalListed;
     }
 
-
+    /**
+    * Retrieves the total number of rented properties in the database
+    * @return : returns an int of all rented
+    */
     public int getTotalRented(){
         int totalRented = 0;
         try{
@@ -41,6 +52,10 @@ public class SummaryReportController extends AppController{
         return totalRented;
     }
 
+    /**
+    * Retrieves the total number of active properties in the database
+    * @return : returns an int of all active
+    */
     public int getTotalActive(){
         int totalActive = 0;
         try{
@@ -57,6 +72,10 @@ public class SummaryReportController extends AppController{
         return totalActive;
     }
 
+    /**
+    * Retrieves all the properties that are currently rented in the database
+    * @return : returns an Arraylist of all the rented houses
+    */
     public ArrayList<Property> getHousesRented(){
         ArrayList<Property> housesRented = new ArrayList<Property>();
         try{

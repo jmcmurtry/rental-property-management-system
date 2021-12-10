@@ -15,10 +15,19 @@ import java.util.ArrayList;
 import model.Email;
 public class EmailController extends AppController {
 
+    /**
+    * Constructor - allows access to database
+    */
     public EmailController(){
         super();
     }
 
+    /**
+    * Adds an email to the email table associated to a landlord
+    * @param renterEmail : the email of the renter seeking to contact a landlord
+    * @param propertyID : the propery id of the property renter is interested in
+    * @param message : String containing the message to send to the landlord
+    */
     public void sendEmail(String renterEmail, int propertyID, String message) {
         try {
             int landlordID = getLandlordIDFromProperty(propertyID);
@@ -35,6 +44,11 @@ public class EmailController extends AppController {
         }
     }
 
+    /**
+    * retrieves all the emails send to a specific landlord
+    * @param landlordID : the id of the landlord whose emails wanted to get
+    * @return : returns an ArrayList containing all the emails for a specific landlord
+    */
     public ArrayList<Email> retrieveEmails(int landlordID) {
         ArrayList<Email> emails = new ArrayList<Email>();
         try {
@@ -53,6 +67,11 @@ public class EmailController extends AppController {
     }
 
 
+    /**
+    * retrieves the id of the landlord who owns the specified property
+    * @param PropertyID : the id of the specified property
+    * @return : returns an int representing the id of the landlord
+    */
     public int getLandlordIDFromProperty(int PropertyID){
         try{
             String query = "SELECT landlordID FROM property WHERE ID = ? ";
@@ -69,6 +88,11 @@ public class EmailController extends AppController {
     }
 
 
+    /**
+    * deletes an email given its id
+    * @param emailID : the id of the specified email to delete
+    * @return : returns a boolean indicating success
+    */
     public boolean deleteEmail(int emailID){
         try{
             String query = "DELETE FROM email WHERE email_id = ?";

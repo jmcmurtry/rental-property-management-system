@@ -36,6 +36,9 @@ public class AppController{
         return appInstance;
     }
 
+    /**
+    * Constructor - initialize connection to the database
+    */
     public AppController(){
         try{
             this.dbConnecter = DriverManager.getConnection(this.DBURL, this.USERNAME, this.PASSWORD);

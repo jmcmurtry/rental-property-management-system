@@ -14,10 +14,21 @@ import model.*;
 import java.util.ArrayList;
 
 public class UserController extends AppController{
+    
+    /**
+    * Constructor - allows access to database
+    */
     public UserController(){
         super();
     }
 
+    /**
+    * Validates the email and password for a specified user type
+    * @param userType : the selected user type
+    * @param email : the input email
+    * @param password : the input password
+    * @return : returns a boolean indicating success
+    */
     public boolean validateUser(String userType, String email, String password){
         try{
             String query = "SELECT " + userType + "_id" + " FROM " + userType + " WHERE email = ? and password = ?";
@@ -34,6 +45,11 @@ public class UserController extends AppController{
         return true;
     }
 
+    /**
+    * Creates a new user in the database of the specified type
+    * @param newUser : the new user to create
+    * @param userType : the selected user type
+    */
     public void createUser(UserProfile newUser, String userType){ // either renter or landlord
         try{
             String query = "INSERT INTO " + userType + "(name, email, password) VALUES(?, ?, ?)";
@@ -49,6 +65,11 @@ public class UserController extends AppController{
     }
 
 
+    /**
+    * Deletes a specific user from the database
+    * @param userID : the id of the user to delete
+    * @return : returns a boolean - indicating success
+    */
     public boolean removeRenter(int userID){
         try{
             String query = "DELETE FROM renter WHERE renter_id = ?";
@@ -63,6 +84,11 @@ public class UserController extends AppController{
         return false;
     }
 
+    /**
+    * Retrieves the id of a specific landlord given their email
+    * @param email : the email of the landlord
+    * @return : returns an int of the landlords id
+    */
     public int getLandlordID(String email){
         try{
             String query = "SELECT landlord_id FROM landlord WHERE email = ? ";
@@ -78,6 +104,11 @@ public class UserController extends AppController{
         return 0;
     }
 
+    /**
+    * Retrieves all the properties for a specific landlord given their id
+    * @param userID : the id of the landlord
+    * @return : returns an ArrayList of all landlords properties
+    */
     public ArrayList<Property> getLandlordProperties(int userID){
         ArrayList<Property> properties = new ArrayList<Property>();
         try{
@@ -96,6 +127,11 @@ public class UserController extends AppController{
         return properties;
     }
 
+    /**
+    * Retrieves the name of a specific landlord given their id
+    * @param LandlordID : the id of the landlord
+    * @return : returns a String that is the landlords name
+    */
     public String getLandlordName(int LandlordID){
         try{
             String query = "SELECT name FROM landlord WHERE landlord_id = ? ";
@@ -111,7 +147,10 @@ public class UserController extends AppController{
         return "";
     }
     
-
+    /**
+    * Retrieves all the landlords currently in the database
+    * @return : returns an ArrayList of all landlords
+    */
     public ArrayList<Landlord> getAllLandlords(){
         ArrayList<Landlord> landlords = new ArrayList<Landlord>();
         try{
@@ -128,6 +167,10 @@ public class UserController extends AppController{
         return landlords;
     }
 
+    /**
+    * Retrieves all the renters currently in the database
+    * @return : returns an ArrayList of all renters
+    */
     public ArrayList<RegisteredRenter> getAllRenters(){
         ArrayList<RegisteredRenter> renters = new ArrayList<RegisteredRenter>();
         try{

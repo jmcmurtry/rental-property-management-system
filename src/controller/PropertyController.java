@@ -5,10 +5,17 @@ import java.util.ArrayList;
 
 public class PropertyController extends AppController{
     
+    /**
+    * Constructor - allows access to database
+    */
 	public PropertyController() {
 		super();
 	}
 
+    /**
+    * Add a new property to the database - initializing its status to 'Active'
+    * @param property : the propery to be created
+    */
 	public void createProperty(Property property) {
 		try {
             String query = "INSERT INTO property(address, type, paymentExpiry, status, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant, price, landLordID) "
@@ -31,6 +38,11 @@ public class PropertyController extends AppController{
 		}
 	}
 
+    /**
+    * Updates the specified propertys status to the new specified value
+    * @param propertyID : the propery id of the property whose status to change
+    * @param newStatus : the new status of the property
+    */
     public void changeStatus(int propertyID, String newStatus){   
         try{
             String query =  "UPDATE property SET status = ? WHERE ID = ?";
@@ -44,6 +56,11 @@ public class PropertyController extends AppController{
 		}  
     }
 
+    /**
+    * Updates the specified propertys payment expiry date - ie renewing it
+    * @param propertyID : the propery id of the property to update
+    * @param newExpiry : the new expiry date of the payment
+    */
     public void changePaymentExpiry(int propertyID, java.sql.Date newExpiry){   
         try{
             String query =  "UPDATE property SET paymentExpiry = ? WHERE ID = ?";
@@ -57,6 +74,11 @@ public class PropertyController extends AppController{
 		}  
     }
 	
+    /**
+    * Deletes a specific property from the database
+    * @param propertyID : the propery id of the property to delete
+    * @return : returns a boolean, indicating success
+    */
     public boolean removeProperty(int propertyID){
         try{
             String query = "DELETE FROM property WHERE ID = ?";
@@ -71,6 +93,10 @@ public class PropertyController extends AppController{
         return false;
     }
 
+    /**
+    * Retrieves all the properties currently in the database
+    * @return : returns an ArrayList containing all the properties 
+    */
     public ArrayList<Property> getAllProperties(){
         ArrayList<Property> properties = new ArrayList<Property>();
         try{
