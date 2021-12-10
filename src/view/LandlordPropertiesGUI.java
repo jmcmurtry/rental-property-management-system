@@ -16,6 +16,8 @@ public class LandlordPropertiesGUI {
     public LandlordPropertiesGUI(ArrayList<Property> landlordProperties, int landlordID){
 
         panel = new JPanel();
+        BoxLayout bl = new BoxLayout(panel, BoxLayout.Y_AXIS);
+        panel.setLayout(bl);
 
         BoxLayout bLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(bLayout);        

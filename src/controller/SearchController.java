@@ -14,19 +14,23 @@ public class SearchController extends AppController{
         String query = "SELECT * FROM property WHERE status = 'Active'";
         try{
             if(propertyType != "No preference"){
-                query = query + " and type = '" + propertyType + "' and 1=1";
+                query = query + " and type = '" + propertyType + "'";
             }
             if(noBeds != "No preference"){
-                query = query + " and noOfBedrooms = " + noBeds + " and 1=1";
+                query = query + " and noOfBedrooms = " + noBeds;
             }
             if(noBaths != "No preference"){
-                query = query + " and noOfBathrooms = " + noBaths + " and 1=1";
+                query = query + " and noOfBathrooms = " + noBaths;
             }
             if(furnished != "No preference"){
-                query = query + " and furnishing = " + furnished + " and 1=1";
+                if(furnished == "No"){
+                    query = query + " and furnishing = 0";
+                }else if(furnished == "Yes"){
+                    query = query + " and furnishing = 1";
+                }
             }
             if(quadrant != "No preference"){
-                query = query + " and cityQuadrant = '" + quadrant + "' and 1=1";
+                query = query + " and cityQuadrant = '" + quadrant + "'";
             }
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             ResultSet results = myStmt.executeQuery();

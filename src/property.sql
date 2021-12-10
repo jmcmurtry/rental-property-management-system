@@ -10,7 +10,7 @@ USE PROPERTY_MANAGEMENT;
  email varchar(25),
  password char(25),
  PRIMARY KEY (landlord_id),
-  CONSTRAINT unique_email UNIQUE (email)
+ CONSTRAINT unique_email UNIQUE (email)
  );
 
 
@@ -22,7 +22,7 @@ USE PROPERTY_MANAGEMENT;
  email varchar(25),
  password char(25),
  PRIMARY KEY (manager_id),
-  CONSTRAINT unique_email UNIQUE (email)
+ CONSTRAINT unique_email UNIQUE (email)
  );
 
 INSERT INTO Manager (name, email, password)
@@ -99,3 +99,18 @@ VALUES
   PRIMARY KEY (table_ID),
   FOREIGN KEY (subrenter_id) references Renter(renter_id) on Update CASCADE
  );
+ 
+ DROP TABLE IF EXISTS EMAIL;
+ CREATE TABLE EMAIL
+ (
+  email_id int NOT NULL auto_increment,
+  landlordID int NOT NULL,
+  renterID int NOT NULL,
+  propertyID int NOT NULL,
+  message char(120) NOT NULL,
+  PRIMARY KEY (email_id),
+  FOREIGN KEY (landlordID)references LANDLORD(landlord_id) on UPDATE CASCADE,
+  FOREIGN KEY (renterID)references RENTER(renter_id) on UPDATE CASCADE,
+  FOREIGN KEY (propertyID) references PROPERTY(ID) on UPDATE CASCADE
+ );
+

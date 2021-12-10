@@ -1,4 +1,13 @@
 package controller;
+/* 
+ * Landlord.java
+ * ENSF 480 - Project
+ * 
+ * John McMurtry 30087058
+ * Athena McNeil-Roberts 30042085
+ * Arindam Mishra-30092921
+ * Harrison Mondragon 30088805
+ */
 
 import java.sql.*;
 import model.*;
@@ -87,4 +96,66 @@ public class UserController extends AppController{
         return properties;
     }
 
+    public String getRenterName(int RenterID){
+        try{
+            String query = "SELECT name FROM property WHERE renter_id = ? ";
+            PreparedStatement myStmt = dbConnecter.prepareStatement(query);
+            myStmt.setInt(1, RenterID);
+            ResultSet results = myStmt.executeQuery();
+            if(results.next()){
+                return results.getString(1);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getLandlordName(int LandlordID){
+        try{
+            String query = "SELECT name FROM landlord WHERE landlord_id = ? ";
+            PreparedStatement myStmt = dbConnecter.prepareStatement(query);
+            myStmt.setInt(1, LandlordID);
+            ResultSet results = myStmt.executeQuery();
+            if(results.next()){
+                return results.getString(1);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+    
+
+    public ArrayList<Landlord> getAllLandlords(){
+        ArrayList<Landlord> landlords = new ArrayList<Landlord>();
+        try{
+            String query = "SELECT * FROM landlord";
+            PreparedStatement myStmt = dbConnecter.prepareStatement(query);
+            ResultSet results = myStmt.executeQuery();
+            while(results.next()){
+                landlords.add(new Landlord(results.getString("name") , results.getString("email"), results.getString("password") ));
+            }
+            myStmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return landlords;
+    }
+
+    public ArrayList<RegisteredRenter> getAllRenters(){
+        ArrayList<RegisteredRenter> renters = new ArrayList<RegisteredRenter>();
+        try{
+            String query = "SELECT * FROM renter";
+            PreparedStatement myStmt = dbConnecter.prepareStatement(query);
+            ResultSet results = myStmt.executeQuery();
+            while(results.next()){
+                renters.add(new RegisteredRenter(results.getString("name") , results.getString("email"), results.getString("password") ));
+            }
+            myStmt.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return renters;
+    }
 }
