@@ -128,7 +128,8 @@ public class Driver {
         // function should then return an ArrayList of type property called PropertyList containing all properties that match search criteria
         SearchController sc = new SearchController();
         ArrayList<Property> PropertyList = sc.performSearch(propertyType, noBeds, noBaths, furnished, quadrant);
-        new RegisteredSearchResultsGUI(PropertyList, email);
+        Search s = new Search(propertyType, noBeds, noBaths, furnished, quadrant);
+        new RegisteredSearchResultsGUI(PropertyList, email, s);
     }    
 
     public static void backToRegisteredRenterMenu(String email){

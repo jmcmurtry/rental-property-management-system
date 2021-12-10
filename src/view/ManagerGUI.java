@@ -181,7 +181,6 @@ public class ManagerGUI {
 
         // intializing setAccessAllInfoPanel and adding necessary components
         accessAllInfoPanel = new JPanel();
-
         BoxLayout bl = new BoxLayout(accessAllInfoPanel, BoxLayout.Y_AXIS);
         accessAllInfoPanel.setLayout(bl);
 

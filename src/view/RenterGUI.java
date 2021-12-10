@@ -173,6 +173,7 @@ public class RenterGUI {
                 String bath = bathcb.getSelectedItem().toString();
                 String furn = furncb.getSelectedItem().toString();
                 String quad = quadcb.getSelectedItem().toString();
+                
                 Driver.getRegisteredSearchResults(propType, bed, bath, furn, quad, renterEmail);
                 frame.dispose();
             }

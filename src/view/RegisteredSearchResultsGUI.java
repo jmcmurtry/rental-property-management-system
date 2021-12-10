@@ -1,5 +1,6 @@
 package view;
 import model.Property;
+import model.Search;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +23,7 @@ public class RegisteredSearchResultsGUI {
     private JTable table;
     private String renterEmail;
 
-    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList, String email){
+    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList, String email, Search s){
 
         JPanel panel = new JPanel();
 
@@ -67,7 +68,16 @@ public class RegisteredSearchResultsGUI {
                 frame.dispose();
             }
         });
-        panel.add(backButton1);           
+        panel.add(backButton1);   
+        
+        JButton subscribe = new JButton("Subscribe to this search");
+        subscribe.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                
+                JOptionPane.showMessageDialog(frame, "You just subscribed to this search criteria");
+            }
+        });
+        panel.add(subscribe); 
 
         frame.add(panel);
         panel.add(scrollPane);

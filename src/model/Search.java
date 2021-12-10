@@ -12,15 +12,15 @@ package model;
 
 public class Search {
     private String propertyType;
-    private int noBed;
-    private int noBath;
-    private boolean isFurnished;
+    private String noBed;
+    private String noBath;
+    private String isFurnished;
     private String quadrant;
 
     public Search(){
     }
 
-    public Search(String type, int bed, int bath, boolean furn, String quad){
+    public Search(String type, String bed, String bath, String furn, String quad){
         this.propertyType = type;
         this.noBed = bed;
         this.noBath = bath;
@@ -32,15 +32,15 @@ public class Search {
         this.propertyType = type;
     }
 
-    public void setBed(int bed){
+    public void setBed(String bed){
         this.noBed = bed;
     }
 
-    public void setBath(int bath){
+    public void setBath(String bath){
         this.noBath = bath;
     }
 
-    public void setFurnished(boolean furn){
+    public void setFurnished(String furn){
         this.isFurnished = furn;
     }
 
@@ -52,15 +52,15 @@ public class Search {
         return this.propertyType;
     }
 
-    public int getBed(){
+    public String getBed(){
         return this.noBed;
     }
     
-    public int getBath(){
+    public String getBath(){
         return this.noBath;
     }
 
-    public boolean getFurnished(){
+    public String getFurnished(){
         return this.isFurnished;
     }
 
