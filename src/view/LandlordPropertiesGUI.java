@@ -25,7 +25,7 @@ public class LandlordPropertiesGUI {
     private JButton backButton3;
 
     /** 
-    * Constructor for the LandlordPropertyGUI. Creates the GUI.
+    * Constructor for the LandlordPropertiesGUI. Creates the GUI.
     * @param landlordProperties : ArrayList of properties that the landlord owns
     * @param landlordID : integer that represents the landlord id
     */
