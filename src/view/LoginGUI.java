@@ -16,6 +16,8 @@ import java.awt.event.*;
 
 public class LoginGUI {
 
+    // private member variables for the GUI components
+
     private JLabel userLabel;
     private JTextField usernameText;
     private JLabel passwordLabel;
@@ -28,8 +30,12 @@ public class LoginGUI {
 
     String[] userTypes = {"Renter", "Landlord", "Manager"};
 
+    /** 
+    * Constructor for the LoginGUI. Creates the GUI and displays it to the user.
+    */
     public LoginGUI(){
 
+        // initialize the GUI components and display them on screen
         JFrame frame = new JFrame("Welcome");
         JPanel loginPanel = new JPanel();
         frame.setSize(500, 500);

@@ -16,6 +16,7 @@ import java.awt.event.*;
 
 public class SearchGUI {
 
+    // private member variables to hold the GUI components
     private JFrame frame;
     private JPanel panel;
     private JLabel searchLabel;
@@ -31,7 +32,12 @@ public class SearchGUI {
     private JComboBox quadcb;
     private JButton searchButton;
 
+    /**
+    * Constructor for the SearchGUI. Creates the GUI and displays it to the user.
+    */
     public SearchGUI(){
+
+        // intializing the GUI components and adding them to the on screen display
 
         String[] bedBathOptions = {"No preference", "1", "2", "3", "4", "5", "6"};
         String[] propertyTypeOptions = {"No preference", "Apartment", "House", "Townhouse"};
@@ -105,6 +111,7 @@ public class SearchGUI {
         });
         panel.add(searchButton);
 
+        // configuring the frame settings
         panel.setVisible(true);
         frame.setContentPane(panel);
         frame.setVisible(true);

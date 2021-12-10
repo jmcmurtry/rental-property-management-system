@@ -19,6 +19,8 @@ import java.util.ArrayList;
  */
 
 public class RenterGUI {
+
+    // private member variables to hold GUI components
     private CardLayout layout;
 
     private JFrame frame = new JFrame("Renter Menu");
@@ -48,11 +50,17 @@ public class RenterGUI {
     private JButton searchPropertyButton;    
     
     private static String renterEmail;
-
+    
+    /**
+    * Constructor for the RenterGUI. Creates the GUI and displays it to the user.
+    * @param email : takes in the renters email to keep track of which renter is logged in
+    */
     public RenterGUI(String email){
         
+        // intializing the renter email
         renterEmail = email;
         
+        // initializing the GUI components
         frame.setSize(750, 750);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(panel);
@@ -60,6 +68,7 @@ public class RenterGUI {
         frame.setVisible(true); 
         
         // initializing the menu panel and adding buttons
+
         menuPanel = new JPanel();
         menuPanel.setLayout(null);
 
@@ -100,7 +109,7 @@ public class RenterGUI {
         });      
         menuPanel.add(emailButton);
 
-        // initializing searchPanel
+        // initializing the search panel
 
         String[] bedBathOptions = {"No preference", "1", "2", "3", "4", "5", "6"};
         String[] propertyTypeOptions = {"No preference", "Apartment", "House", "Townhouse"};
@@ -180,7 +189,8 @@ public class RenterGUI {
         searchPanel.add(backButton1);   
         
         
-        //initializing emailPanel
+        //initializing the email panel
+
         emailPanel = new JPanel();
         emailPanel.setLayout(null);
 
@@ -229,7 +239,7 @@ public class RenterGUI {
         });
         emailPanel.add(sendEmailButton); 
 
-
+        // adding all GUI components to the frame and setting up the card layout for proper movement between pages
         layout = new CardLayout();
         panel.setLayout(layout);
         panel.add(menuPanel, "1");

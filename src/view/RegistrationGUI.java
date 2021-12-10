@@ -17,6 +17,7 @@ import java.awt.event.*;
 
 public class RegistrationGUI {
 
+    // private member variables for the GUI components
     private JComboBox userType;
     private JLabel emailLabel;
     private JLabel nameLabel;
@@ -31,7 +32,12 @@ public class RegistrationGUI {
 
     String[] userTypes = {"Renter", "Landlord"};
 
+    /**
+    * Constructor for the RegistrationGUI. Creates the GUI and displays it to the user.
+    */
     public RegistrationGUI(){
+
+        // initializing the components and displaying them on screen
         JFrame frame = new JFrame("Register as a new user");
         JPanel panel = new JPanel();
         frame.setSize(500, 500);
