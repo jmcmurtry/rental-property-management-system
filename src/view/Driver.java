@@ -99,11 +99,13 @@ public class Driver {
     }
 
     public static String getPaymentFee(){
-        return String.valueOf(fee);
+        PaymentController pc = new PaymentController();
+        return pc.getPaymentFee();
     }
 
     public static String getNumberOfFeeDays(){
-        return String.valueOf(numberOfDays);
+        PaymentController pc = new PaymentController();
+        return pc.getNumberOfFeeDays();
     }
 
     // static functions for search page
