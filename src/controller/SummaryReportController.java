@@ -21,7 +21,6 @@ public class SummaryReportController extends AppController{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        System.out.println("total Listed: " + totalListed);
         return totalListed;
     }
 
@@ -39,7 +38,6 @@ public class SummaryReportController extends AppController{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        System.out.println("total Rented: " + totalRented);
         return totalRented;
     }
 
@@ -56,7 +54,6 @@ public class SummaryReportController extends AppController{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        System.out.println("total Active: " + totalActive);
         return totalActive;
     }
 
@@ -67,7 +64,7 @@ public class SummaryReportController extends AppController{
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             ResultSet results = myStmt.executeQuery();
             while(results.next()){
-                housesRented.add(new Property(results.getString("address"), results.getString("type"), Integer.parseInt(results.getString("noOfBedrooms")), Integer.parseInt(results.getString("noOfBathrooms")), 
+                housesRented.add(new Property(results.getInt("ID"), results.getString("address"), results.getString("type"), Integer.parseInt(results.getString("noOfBedrooms")), Integer.parseInt(results.getString("noOfBathrooms")), 
                 Boolean.parseBoolean(results.getString("furnishing")), results.getString("cityQuadrant"), Integer.parseInt(results.getString("landlordID")), Integer.parseInt(results.getString("price")), Date.valueOf(results.getString("paymentExpiry")), results.getString("status") ));
             }
             myStmt.close();

@@ -10,7 +10,7 @@ USE PROPERTY_MANAGEMENT;
  email varchar(25),
  password char(25),
  PRIMARY KEY (landlord_id),
- CONSTRAINT unique_email UNIQUE (email)
+  CONSTRAINT unique_email UNIQUE (email)
  );
 
 
@@ -22,7 +22,7 @@ USE PROPERTY_MANAGEMENT;
  email varchar(25),
  password char(25),
  PRIMARY KEY (manager_id),
- CONSTRAINT unique_email UNIQUE (email)
+  CONSTRAINT unique_email UNIQUE (email)
  );
 
 INSERT INTO Manager (name, email, password)
@@ -82,3 +82,6 @@ VALUES
   numDays int NOT NULL,
   PRIMARY KEY (id)
  );
+ 
+ INSERT INTO fee_info(fee, numDays) 
+ VALUES (30, 60);

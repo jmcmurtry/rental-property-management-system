@@ -87,8 +87,9 @@ public class Driver {
 
     public static void managePropertiesButtonPressed(int landlordID){
         // grabs array list of properties from database based on landlord id
-        ArrayList<Property> test = new ArrayList<Property>();
-        new LandlordPropertiesGUI(test, landlordID);
+        UserController uc = new UserController();
+        ArrayList<Property> properties = uc.getLandlordProperties(landlordID);
+        new LandlordPropertiesGUI(properties, landlordID);
     }
 
     public static void backToLandlordMenu(int landlordID){
@@ -116,12 +117,11 @@ public class Driver {
 
     // static functions for manager page
 
-    public static void setPaymentFee(double newFee){
+    public static void setFeeInfo(double newFee, int days){
         fee = newFee;
-        // setFeeInfo()
+        numberOfDays = days;
+        PaymentController pc = new PaymentController();
+        pc.setFeeInfo(newFee, days);
     }
 
-    public static void setNumberOfFeeDays(int days){
-        numberOfDays = days;
-    }
 }

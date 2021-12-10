@@ -184,7 +184,7 @@ public class LandlordGUI {
                             JOptionPane.showMessageDialog(frame, "Rent price is not valid. Please try again.");
                             return;
                         }
-                        Property newProperty = new Property(addressText.getText(), typecb.getSelectedItem().toString(), Integer.parseInt(bedcb.getSelectedItem().toString()), 
+                        Property newProperty = new Property(1, addressText.getText(), typecb.getSelectedItem().toString(), Integer.parseInt(bedcb.getSelectedItem().toString()), 
                         Integer.parseInt(bathcb.getSelectedItem().toString()), Boolean.parseBoolean(furncb.getSelectedItem().toString()), 
                         quadcb.getSelectedItem().toString(), ownerID, rentPrice, expiryDate, "Active");
                         Driver.submitPropertyRegistrationPressed(newProperty);                  

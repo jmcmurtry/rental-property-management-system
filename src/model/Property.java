@@ -25,7 +25,8 @@ public class Property {
     private Date paymentExpiry;
     private String propertyStatus;
 
-    public Property(String address, String type, int bed, int bath, boolean furn, String quad, int ownerid, int rentPrice, Date expiryDate, String status){
+    public Property(int id, String address, String type, int bed, int bath, boolean furn, String quad, int ownerid, int rentPrice, Date expiryDate, String status){
+        this.id = id;
         this.address = address;
         this.propertyType = type;
         this.noBed = bed;
