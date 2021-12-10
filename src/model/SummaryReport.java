@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /* 
- * Subject.java
+ * SummaryReport.java
  * ENSF 480 - Project
  * 
  * John McMurtry 30087058

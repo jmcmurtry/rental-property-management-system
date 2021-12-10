@@ -1,7 +1,7 @@
 package controller;
 
 /* 
- * Landlord.java
+ * EmailController.java
  * ENSF 480 - Project
  * 
  * John McMurtry 30087058

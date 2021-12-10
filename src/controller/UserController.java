@@ -1,6 +1,6 @@
 package controller;
 /* 
- * Landlord.java
+ * UserController.java
  * ENSF 480 - Project
  * 
  * John McMurtry 30087058
