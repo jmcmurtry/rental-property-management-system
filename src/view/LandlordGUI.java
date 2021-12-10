@@ -25,16 +25,17 @@ public class LandlordGUI {
     private JFrame frame = new JFrame("Landlord Menu");
     private JPanel panel = new JPanel();
 
-    private JPanel menuPanel, registerPanel, paymentPanel;
+    private JPanel menuPanel, registerPanel, paymentPanel, listingStatePanel;
 
     private JLabel welcomeLabel, propertyLabel, addressLabel, typeOps, bedOps, bathOps, furnOps, quadOps, rentLabel, paymentIDLabel;
     private JLabel paymentLabel, paymentTitleLabel, paymentFeeLabel, paymentDaysLabel, paymentRegistrationLabel, paymentRegistrationFeeLabel;
+    private JLabel listingTitleLabel, listingIDLabel, listingLabel;
 
-    private JButton registerButton, submitButton, propertyButton, paymentButton, paymentMenuButton, backButton1, backButton2, backButton3;
+    private JButton registerButton, submitButton, propertyButton, paymentButton, paymentMenuButton, changeListingButton, backButton1, backButton2, backButton3, backButton4, stateChangeButton;
 
-    private JTextField addressText, rentText, paymentText, paymentRegistrationText, paymentIDText;
+    private JTextField addressText, rentText, paymentText, paymentRegistrationText, paymentIDText, listingIDText;
 
-    private JComboBox typecb, bedcb, bathcb, furncb, quadcb;
+    private JComboBox typecb, bedcb, bathcb, furncb, quadcb, listingcb;
 
     private static String fee;
     private static String numberOfDays;
@@ -55,11 +56,11 @@ public class LandlordGUI {
         menuPanel.setLayout(null);
 
         welcomeLabel = new JLabel("Welcome!");
-        welcomeLabel.setBounds(10, 20, 200, 25);
+        welcomeLabel.setBounds(10, 20, 250, 25);
         menuPanel.add(welcomeLabel);
 
         registerButton = new JButton("Register Property");
-        registerButton.setBounds(10, 50, 200, 25); 
+        registerButton.setBounds(10, 50, 250, 25); 
         registerButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 layout.show(panel, "2");
@@ -68,7 +69,7 @@ public class LandlordGUI {
         menuPanel.add(registerButton);   
         
         paymentMenuButton = new JButton("Renew Payment");
-        paymentMenuButton.setBounds(10, 80, 200, 25); 
+        paymentMenuButton.setBounds(10, 80, 250, 25); 
         paymentMenuButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 layout.show(panel, "3");
@@ -77,14 +78,23 @@ public class LandlordGUI {
         menuPanel.add(paymentMenuButton);  
 
         propertyButton = new JButton("Manage Properties");
-        propertyButton.setBounds(10, 110, 200, 25); 
+        propertyButton.setBounds(10, 110, 250, 25); 
         propertyButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 Driver.managePropertiesButtonPressed(landlordID);
                 frame.dispose();
             }
         });          
-        menuPanel.add(propertyButton);            
+        menuPanel.add(propertyButton);   
+
+        changeListingButton = new JButton("Change Property State");
+        changeListingButton.setBounds(10, 140, 250, 25); 
+        changeListingButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(panel, "4");
+            }
+        });          
+        menuPanel.add(changeListingButton);                    
 
         // intializing the property registration panel and adding the necessary components
         registerPanel = new JPanel();
@@ -272,7 +282,64 @@ public class LandlordGUI {
                 layout.show(panel, "1");
             }
         });
-        paymentPanel.add(backButton2);        
+        paymentPanel.add(backButton2);     
+
+        // panel for changing listing state
+
+        listingStatePanel = new JPanel();
+        listingStatePanel.setLayout(null);
+
+        listingTitleLabel = new JLabel("Change Listing State:");
+        listingTitleLabel.setBounds(10, 20, 200, 25);
+        listingStatePanel.add(listingTitleLabel);
+
+        listingIDLabel = new JLabel("Property ID for State Change:");
+        listingIDLabel.setBounds(10, 50, 200, 25);
+        listingStatePanel.add(listingIDLabel);    
+        
+        listingIDText = new JTextField(20); 
+        listingIDText.setBounds(300, 50, 200, 25);        
+        listingStatePanel.add(listingIDText);          
+
+        listingLabel = new JLabel("New Listing Status:");
+        listingLabel.setBounds(10, 80, 200, 25);
+        listingStatePanel.add(listingLabel);  
+
+        String[] stateOptions = {"Active", "Rented", "Cancelled", "Suspended"};
+
+        listingcb = new JComboBox(stateOptions);
+        listingcb.setBounds(300, 80, 200, 25);
+        listingStatePanel.add(listingcb);
+
+        stateChangeButton = new JButton("Submit Change");
+        stateChangeButton.setBounds(320, 110, 160, 25);         
+        stateChangeButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                try{
+                    int listingID = Integer.parseInt(listingIDText.getText().toString());
+                    if(listingID < 0){
+                        JOptionPane.showMessageDialog(frame, "PropertyID was not valid. Please try again.");
+                        return;
+                    }
+                    String newState = listingcb.getSelectedItem().toString();
+                    Driver.changeListingState(listingID, newState);
+                    JOptionPane.showMessageDialog(frame, "Listing state has been changed. Click okay to continue");
+                    layout.show(panel, "1");
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(frame, "PropertyID was not valid. Please try again");
+                }
+            }
+        });          
+        listingStatePanel.add(stateChangeButton);          
+
+        backButton4 = new JButton("Back to menu");
+        backButton4.setBounds(30, 400, 150, 25);
+        backButton4.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(panel, "1");
+            }
+        });
+        listingStatePanel.add(backButton4);
 
         // initialize the card layout and add panels so that users can move between pages 
         layout = new CardLayout();
@@ -280,6 +347,7 @@ public class LandlordGUI {
         panel.add(menuPanel, "1");
         panel.add(registerPanel, "2");
         panel.add(paymentPanel, "3");
+        panel.add(listingStatePanel, "4");
         layout.show(panel, "1");        
     }
 }

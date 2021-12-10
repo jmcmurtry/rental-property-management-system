@@ -123,5 +123,28 @@ public class Driver {
         PaymentController pc = new PaymentController();
         pc.setFeeInfo(newFee, days);
     }
+    
+    public static void changeListingState(int propertyID, String newState){
+        // needs to change the property with id "propertyID" to the newState in the database
+    }
+
+
+    // manager functions
+    public static int totalHousesListedManager(){
+        SummaryReportController src = new SummaryReportController();
+        return src.getTotalListed();
+    }
+
+    public static int totalRentedManager(){
+        SummaryReportController src = new SummaryReportController();
+        return src.getTotalRented();
+    }
+
+    public static int totalActiveManager(){
+        SummaryReportController src = new SummaryReportController();
+        return src.getTotalActive();
+    }
+
+    //need list of houses
 
 }

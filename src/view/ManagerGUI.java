@@ -3,7 +3,6 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
 public class ManagerGUI {
     // initializing
     private CardLayout layout;
@@ -15,6 +14,7 @@ public class ManagerGUI {
     private JPanel setChangeFeePanel;
     private JPanel accessAllInfoPanel;
     private JPanel genReportPanel;
+    private JPanel listingStatePanel;
 
     private JLabel menuLabel;
 
@@ -22,6 +22,7 @@ public class ManagerGUI {
     private JButton setChangeFeeButton;
     private JButton accessAllInfoButton;
     private JButton genReportButton;
+    private JButton changeStateButton;
 
     // setChangefee components
     private JLabel currentFeeDays;
@@ -77,6 +78,16 @@ public class ManagerGUI {
             }
         });
         menuPanel.add(genReportButton);
+
+        // changeStateButton
+        changeStateButton = new JButton("Change State of Property");
+        changeStateButton.setBounds(10, 130, 200, 25);
+        changeStateButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                layout.show(masterPanel, "5");
+            }
+        });
+        menuPanel.add(changeStateButton);
 
         // intializing setChangeFeePanel and adding necessary components
         setChangeFeePanel = new JPanel();
@@ -145,8 +156,7 @@ public class ManagerGUI {
                     JOptionPane.showMessageDialog(null, "Input invalid, please try again");
                 }
                 else{
-                    Driver.setNumberOfFeeDays(per);
-                    Driver.setPaymentFee(pri);
+                    Driver.setFeeInfo(pri, per);
                     JOptionPane.showMessageDialog(null, "Changed the fees");
                 }
             }
@@ -221,8 +231,17 @@ public class ManagerGUI {
         genReportPanel.setLayout(bl2);
 
         String xs = "Total number of houses listed in this period: ";
+        int xi = Driver.totalHousesListedManager();
+        xs += String.valueOf(xi);
+
         String ys = "Total number of houses rented in this period: ";
+        int yi = Driver.totalRentedManager();
+        ys += String.valueOf(yi);
+
         String zs = "Total number of active listing: ";
+        int zi = Driver.totalActiveManager();
+        zs += String.valueOf(zi);
+
         String as = "List of rented houses:";
 
         String [] rentedHouseHeaders = {"Landlord's Name", "Property ID Number", "Property Address"};
@@ -258,9 +277,64 @@ public class ManagerGUI {
             }
         });
         genReportPanel.add(backButton3);
+
+        // panel for changing listing state
+
+        listingStatePanel = new JPanel();
+        listingStatePanel.setLayout(null);
+
+        JLabel listingTitleLabel = new JLabel("Change Listing State:");
+        listingTitleLabel.setBounds(10, 20, 200, 25);
+        listingStatePanel.add(listingTitleLabel);
+
+        JLabel listingIDLabel = new JLabel("Property ID for State Change:");
+        listingIDLabel.setBounds(10, 50, 200, 25);
+        listingStatePanel.add(listingIDLabel);    
         
+        JTextField listingIDText = new JTextField(20); 
+        listingIDText.setBounds(300, 50, 200, 25);        
+        listingStatePanel.add(listingIDText);          
+
+        JLabel listingLabel = new JLabel("New Listing Status:");
+        listingLabel.setBounds(10, 80, 200, 25);
+        listingStatePanel.add(listingLabel);  
+
+        String[] stateOptions = {"Active", "Rented", "Cancelled", "Suspended"};
+
+        JComboBox listingcb = new JComboBox(stateOptions);
+        listingcb.setBounds(300, 80, 200, 25);
+        listingStatePanel.add(listingcb);
+
+        JButton stateChangeButton = new JButton("Submit Change");
+        stateChangeButton.setBounds(320, 110, 160, 25);         
+        stateChangeButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                try{
+                    int listingID = Integer.parseInt(listingIDText.getText().toString());
+                    if(listingID < 0){
+                        JOptionPane.showMessageDialog(frame, "PropertyID was not valid. Please try again.");
+                        return;
+                    }
+                    String newState = listingcb.getSelectedItem().toString();
+                    Driver.changeListingState(listingID, newState);
+                    JOptionPane.showMessageDialog(frame, "Listing state has been changed. Click okay to continue");
+                    layout.show(masterPanel, "1");
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(frame, "PropertyID was not valid. Please try again");
+                }
+            }
+        });          
+        listingStatePanel.add(stateChangeButton);          
 
 
+        JButton backButton4 = new JButton("Back to menu");
+        backButton4.setBounds(30, 400, 150, 25);
+        backButton4.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(masterPanel, "1");
+            }
+        });
+        listingStatePanel.add(backButton4);
 
         layout = new CardLayout();
         masterPanel.setLayout(layout);
@@ -268,6 +342,7 @@ public class ManagerGUI {
         masterPanel.add(setChangeFeePanel, "2");
         masterPanel.add(accessAllInfoPanel, "3");
         masterPanel.add(genReportPanel, "4");
+        masterPanel.add(listingStatePanel, "5");
         layout.show(masterPanel, "1");
     }
 }

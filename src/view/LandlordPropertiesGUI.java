@@ -17,6 +17,9 @@ public class LandlordPropertiesGUI {
 
         panel = new JPanel();
 
+        BoxLayout bLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
+        panel.setLayout(bLayout);        
+
         if(!landlordProperties.isEmpty()){
             Object[][] data = new Object[landlordProperties.size()][9];
 
