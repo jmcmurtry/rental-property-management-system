@@ -174,4 +174,17 @@ public class Driver {
         return uc.getLandlordName(landlordID);
     }
 
+    public static ArrayList<RegisteredRenter> getAllRentersManager(){
+        UserController uc = new UserController();
+        return uc.getAllRenters();
+    }
+    public static ArrayList<Landlord> getAllLandlordsManager(){
+        UserController uc = new UserController();
+        return uc.getAllLandlords();
+    }
+    public static ArrayList<Property> getAllPropertiesManager(){
+        PropertyController pc = new PropertyController();
+        return pc.getAllProperties();
+    }
+
 }

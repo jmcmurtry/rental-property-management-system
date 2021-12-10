@@ -1,9 +1,7 @@
 package view;
 
 import javax.swing.*;
-
-import model.Property;
-
+import model.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -36,6 +34,9 @@ public class ManagerGUI {
     private JTextField feePrice;
     private JTextField feePeriod;
     private JButton submitFeeChanges;
+
+    private static String propertyFee; 
+    private static String remainingDays;
 
     public ManagerGUI() {
 
@@ -97,10 +98,10 @@ public class ManagerGUI {
         setChangeFeePanel = new JPanel();
         setChangeFeePanel.setLayout(null);
 
-        String currentFees = Driver.getPaymentFee();
-        String currentDays = Driver.getNumberOfFeeDays();
+        propertyFee = Driver.getPaymentFee();
+        remainingDays = Driver.getNumberOfFeeDays();
 
-        currentFeeDays = new JLabel("The current fee is " + currentFees + " for " + currentDays + " days.");
+        currentFeeDays = new JLabel("The current fee is " + propertyFee + " for " + remainingDays + " days.");
         currentFeeDays.setBounds(10, 10, 400, 25);
         setChangeFeePanel.add(currentFeeDays);
 
@@ -162,6 +163,8 @@ public class ManagerGUI {
                 else{
                     Driver.setFeeInfo(pri, per);
                     JOptionPane.showMessageDialog(null, "Changed the fees");
+                    propertyFee = Driver.getPaymentFee();
+                    remainingDays = Driver.getNumberOfFeeDays();                    
                 }
             }
         });
@@ -182,38 +185,86 @@ public class ManagerGUI {
         BoxLayout bl = new BoxLayout(accessAllInfoPanel, BoxLayout.Y_AXIS);
         accessAllInfoPanel.setLayout(bl);
 
-        String[] renterAtts = {"Name", "Email", "ID"};
+        String[] renterAtts = {"Name", "Email", "ID", };
         String[] landlordAtts = {"Name", "Email", "ID"};
-        String[] propertyAtts = {"Address", "Type", "Bed", "Bath", "Furnished", "Quadrant", "Owner ID", "Payment Expirey Date"};
+        String[] propertyAtts = {"Property ID", "Address", "Type", "Beds", "Baths", "Furnished?", "Quadrant", "Landlord ID", "Rent Price ($)", "Fee Expiry Date", "Status"};
 
-        String[][] mockRenter = {   {"Harry", "harry@gmail.com", "123"}, 
-                                    {"Athena", "athena@yahoo.com", "456"}};
+        // String[][] mockRenter = {   {"Harry", "harry@gmail.com", "123"}, 
+        //                             {"Athena", "athena@yahoo.com", "456"}};
 
-        String[][] mockLandlord = { {"Arindam", "arindam@gmail.com", "789"},
-                                    {"John", "john@hotmail.com", "420"}};
+        // String[][] mockLandlord = { {"Arindam", "arindam@gmail.com", "789"},
+        //                             {"John", "john@hotmail.com", "420"}};
 
-        String[][] mockProp = {     {"Bruhdale", "House", "2", "2", "true", "SW", "789", "2022-01-01"},
-                                    {"Bro st", "Apartment", "1", "1", "false", "NW", "789", "2022-01-21"},
-                                    {"mac hall", "Townhouse", "2", "1", "false", "NE", "420", "2022-03-01"}};
-
+        // String[][] mockProp = {     {"Bruhdale", "House", "2", "2", "true", "SW", "789", "2022-01-01"},
+        //                             {"Bro st", "Apartment", "1", "1", "false", "NW", "789", "2022-01-21"},
+        //                             {"mac hall", "Townhouse", "2", "1", "false", "NE", "420", "2022-03-01"}};
+        ArrayList <RegisteredRenter> allRenters = Driver.getAllRentersManager();
+        Object [][] rentersList = new Object [allRenters.size()][3];
+        for(int i = 0; i < allRenters.size(); i++){
+            int j = 0;
+            rentersList[i][j] = allRenters.get(i).getName();
+            j++;
+            rentersList[i][j] = allRenters.get(i).getEmail();
+            j++;          
+            rentersList[i][j] = allRenters.get(i).getID();
+        }
+        
+        
+        ArrayList <Landlord> allLandlords = Driver.getAllLandlordsManager();
+        Object [][] landlordsList = new Object [allLandlords.size()][3];
+        for(int i = 0; i < allLandlords.size(); i++){
+            int j = 0;
+            landlordsList[i][j] = allLandlords.get(i).getName();
+            j++;
+            landlordsList[i][j] = allLandlords.get(i).getID();
+            j++;          
+            landlordsList[i][j] = allLandlords.get(i).getID();
+        }
+        
+        ArrayList <Property> allProperties = Driver.getAllPropertiesManager();
+        Object[][] propertyList = new Object[allProperties.size()][11];
+        for(int i = 0; i < allProperties.size(); i++){
+            int j = 0;
+            propertyList[i][j] = allProperties.get(i).getID();
+            j++;      
+            propertyList[i][j] = allProperties.get(i).getAddress();
+            j++;
+            propertyList[i][j] = allProperties.get(i).getType();
+            j++;
+            propertyList[i][j] = allProperties.get(i).getBed();
+            j++;
+            propertyList[i][j] = allProperties.get(i).getBath();
+            j++;
+            propertyList[i][j] = allProperties.get(i).getFurnished();
+            j++;
+            propertyList[i][j] = allProperties.get(i).getQuadrant();
+            j++;
+            propertyList[i][j] = allProperties.get(i).getLandlord();
+            j++;            
+            propertyList[i][j] = allProperties.get(i).getRentPrice();
+            j++;
+            propertyList[i][j] = allProperties.get(i).getPaymentExpiry();
+            j++;            
+            propertyList[i][j] = allProperties.get(i).getStatus();               
+            }        
 
         JLabel ren = new JLabel("Renter data");
         accessAllInfoPanel.add(ren);
-        JTable rentTable = new JTable(mockRenter, renterAtts);
+        JTable rentTable = new JTable(rentersList, renterAtts);
         JScrollPane rscrol = new JScrollPane(rentTable);
         //rscrol.setBounds(30, 30, 440, 50);
         accessAllInfoPanel.add(rscrol);
 
         JLabel lan = new JLabel("Landlord data");
         accessAllInfoPanel.add(lan);
-        JTable landTable = new JTable(mockLandlord, landlordAtts);
+        JTable landTable = new JTable(landlordsList, landlordAtts);
         JScrollPane lscrol = new JScrollPane(landTable);
         //lscrol.setBounds(30, 130, 440, 50);
         accessAllInfoPanel.add(lscrol);
 
         JLabel pro = new JLabel("Property data");
         accessAllInfoPanel.add(pro);
-        JTable propTable = new JTable(mockProp, propertyAtts);
+        JTable propTable = new JTable(propertyList, propertyAtts);
         JScrollPane pscrol = new JScrollPane(propTable);
         //pscrol.setBounds(30, 230, 440, 50);
         accessAllInfoPanel.add(pscrol);
@@ -249,8 +300,6 @@ public class ManagerGUI {
 
         ArrayList<Property> rentedProps = Driver.listRented();
 
-        System.out.println(rentedProps);
-
         Object [][] rentedHouse = new Object [rentedProps.size()][3];
 
         for(int i = 0; i < rentedProps.size(); i++){
@@ -260,7 +309,6 @@ public class ManagerGUI {
             rentedHouse[i][j] = rentedProps.get(i).getID();
             j++;          
             rentedHouse[i][j] = rentedProps.get(i).getAddress();
-            j++;
         }
 
         String [] rentedHouseHeaders = {"Landlord Name", "Property ID", "Address"};
