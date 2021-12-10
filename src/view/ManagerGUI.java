@@ -5,13 +5,24 @@ import model.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+
+/* 
+ * ManagerGUI.java
+ * ENSF 480 - Project
+ * 
+ * John McMurtry 30087058
+ * Athena McNeil-Roberts 30042085
+ * Arindam Mishra 30092921
+ * Harrison Mondragon 30088805
+ */
+
 public class ManagerGUI {
-    // initializing
+
+    // private member variables to hold the GUI components
     private CardLayout layout;
     private JFrame frame = new JFrame("Manager Menu");
     private JPanel masterPanel = new JPanel();
 
-    // pannels
     private JPanel menuPanel;
     private JPanel setChangeFeePanel;
     private JPanel accessAllInfoPanel;
@@ -20,13 +31,11 @@ public class ManagerGUI {
 
     private JLabel menuLabel;
 
-    // buttons on menuPannel
     private JButton setChangeFeeButton;
     private JButton accessAllInfoButton;
     private JButton genReportButton;
     private JButton changeStateButton;
 
-    // setChangefee components
     private JLabel currentFeeDays;
     private JLabel setChangeFeeDirections;
     private JLabel feePriceLabel;
@@ -38,6 +47,9 @@ public class ManagerGUI {
     private static String propertyFee; 
     private static String remainingDays;
 
+    /**
+    * Constructor for the ManagerGUI. Creates the GUI and displays it to the user.
+    */
     public ManagerGUI() {
 
         // initialize JFrame object
@@ -380,7 +392,6 @@ public class ManagerGUI {
         });          
         listingStatePanel.add(stateChangeButton);          
 
-
         JButton backButton4 = new JButton("Back to menu");
         backButton4.setBounds(30, 400, 150, 25);
         backButton4.addActionListener(new ActionListener(){
@@ -390,6 +401,7 @@ public class ManagerGUI {
         });
         listingStatePanel.add(backButton4);
 
+        // adding all elements to the masterPanel and setting up the card layout for proper movement between pages
         layout = new CardLayout();
         masterPanel.setLayout(layout);
         masterPanel.add(menuPanel, "1");

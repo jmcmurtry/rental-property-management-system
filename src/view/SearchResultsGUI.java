@@ -6,8 +6,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-
-
 /* 
  * SearchResultsGUI.java
  * ENSF 480 - Project

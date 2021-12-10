@@ -19,12 +19,23 @@ import java.util.ArrayList;
 
 public class RegisteredSearchResultsGUI {
 
+    // private member variables to hold GUI components
     private JFrame frame = new JFrame();
     private JTable table;
     private String renterEmail;
 
+<<<<<<< HEAD
     public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList, String email, Search s){
+=======
+    /**
+    * Constructor for the RegisteredSearchResultsGUI. Creates the GUI and displays it to the user.
+    * @param PropertyList : an ArrayList of type Property that holds all properties that fall within search criteria
+    * @param email : contains the renters email
+    */
+    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList, String email){
+>>>>>>> 13a85c8fcb3eb36576472db755877f40338d7398
 
+        // initializing the GUI components
         JPanel panel = new JPanel();
 
         renterEmail = email;
@@ -79,6 +90,7 @@ public class RegisteredSearchResultsGUI {
         });
         panel.add(subscribe); 
 
+        // adding all elements to the frame and configuring the display
         frame.add(panel);
         panel.add(scrollPane);
         frame.setSize(750, 750);
