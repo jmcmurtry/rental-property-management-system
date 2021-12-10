@@ -1,5 +1,4 @@
-import view.*;
-import controller.*;
+import view.LoginGUI;
 
 /* 
  * App.java
