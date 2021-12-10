@@ -6,10 +6,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-
-
 /* 
- * SearchResultsGUI.java
+ * RegisteredSearchResultsGUI.java
  * ENSF 480 - Project
  * 
  * John McMurtry 30087058
@@ -18,17 +16,17 @@ import java.util.ArrayList;
  * Harrison Mondragon 30088805
  */
 
-public class SearchResultsGUI {
+public class RegisteredSearchResultsGUI {
 
     private JFrame frame = new JFrame();
     private JTable table;
 
-    public SearchResultsGUI(ArrayList<Property> PropertyList){
+    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList){
 
         JPanel panel = new JPanel();
 
         BoxLayout bLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(bLayout);    
+        panel.setLayout(bLayout);          
 
         Object[][] data = new Object[PropertyList.size()][7];
 
@@ -60,11 +58,11 @@ public class SearchResultsGUI {
         backButton1.setBounds(30, 400, 150, 25);
         backButton1.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                Driver.backToUnregisteredRenterMenu();
+                Driver.backToRegisteredRenterMenu();
                 frame.dispose();
             }
         });
-        panel.add(backButton1);             
+        panel.add(backButton1);           
 
         frame.add(panel);
         panel.add(scrollPane);

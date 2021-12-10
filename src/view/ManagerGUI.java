@@ -1,8 +1,12 @@
 package view;
 
 import javax.swing.*;
+
+import model.Property;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 public class ManagerGUI {
     // initializing
     private CardLayout layout;
@@ -104,14 +108,14 @@ public class ManagerGUI {
         setChangeFeeDirections.setBounds(10, 40, 400, 25);
         setChangeFeePanel.add(setChangeFeeDirections);
 
-        feePriceLabel = new JLabel("Enter new fee price:");
+        feePriceLabel = new JLabel("Enter new fee price ($):");
         feePriceLabel.setBounds(10, 70, 190, 25);
         setChangeFeePanel.add(feePriceLabel);
         feePrice = new JTextField(25);
         feePrice.setBounds(200, 70, 50, 25);
         setChangeFeePanel.add(feePrice);
 
-        feePeriodLabel = new JLabel("Enter new fee period:");
+        feePeriodLabel = new JLabel("Enter new fee period (days):");
         feePeriodLabel.setBounds(10, 100, 190, 25);
         setChangeFeePanel.add(feePeriodLabel);
         feePeriod = new JTextField(25);
@@ -226,7 +230,6 @@ public class ManagerGUI {
 
         // intializing GenReportPanel and adding necessary components
         genReportPanel = new JPanel();
-        //genReportPanel.setLayout(bl);
         BoxLayout bl2 = new BoxLayout(genReportPanel, BoxLayout.Y_AXIS);
         genReportPanel.setLayout(bl2);
 
@@ -244,10 +247,27 @@ public class ManagerGUI {
 
         String as = "List of rented houses:";
 
-        String [] rentedHouseHeaders = {"Landlord's Name", "Property ID Number", "Property Address"};
-        String [][] rentedHouseMock = { {"Gojo", "300", "Glizzy st"},
-                                        {"Ron", "310", "tfdl"},
-                                        {"Arule", "340", "Spooder"}};
+        ArrayList<Property> rentedProps = Driver.listRented();
+
+        System.out.println(rentedProps);
+
+        Object [][] rentedHouse = new Object [rentedProps.size()][3];
+
+        for(int i = 0; i < rentedProps.size(); i++){
+            int j = 0;
+            rentedHouse[i][j] = "Landlord Name";
+            j++;
+            rentedHouse[i][j] = rentedProps.get(i).getID();
+            j++;          
+            rentedHouse[i][j] = rentedProps.get(i).getAddress();
+            j++;
+        }
+
+
+        String [] rentedHouseHeaders = {"Landlord Name", "Property ID", "Address"};
+        // String [][] rentedHouseMock = { {"Gojo", "300", "Glizzy st"},
+        //                                 {"Ron", "310", "tfdl"},
+        //                                 {"Arule", "340", "Spooder"}};
 
         JLabel x = new JLabel(xs);
         x.setBounds(30, 30, 400, 25);
@@ -265,7 +285,7 @@ public class ManagerGUI {
         a.setBounds(30, 120, 400, 25);
         genReportPanel.add(a);
 
-        JTable reportTable = new JTable(rentedHouseMock, rentedHouseHeaders);
+        JTable reportTable = new JTable(rentedHouse, rentedHouseHeaders);
         JScrollPane repscrol = new JScrollPane(reportTable);
         genReportPanel.add(repscrol);
         

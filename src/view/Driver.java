@@ -2,6 +2,8 @@ package view;
 
 import model.*;
 import controller.*;
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 /* 
@@ -115,6 +117,23 @@ public class Driver {
         new SearchResultsGUI(PropertyList);
     }
 
+    public static void getRegisteredSearchResults(String propertyType, String noBeds, String noBaths, String furnished, String quadrant){
+        // need to call a function that uses the above parameters
+        // function should search through database for properties that match the search query
+        // function should then return an ArrayList of type property called PropertyList containing all properties that match search criteria
+        SearchController sc = new SearchController();
+        ArrayList<Property> PropertyList = sc.performSearch(propertyType, noBeds, noBaths, furnished, quadrant);
+        new RegisteredSearchResultsGUI(PropertyList);
+    }    
+
+    public static void backToRegisteredRenterMenu(){
+        new RenterGUI();
+    }
+
+    public static void backToUnregisteredRenterMenu(){
+        new SearchGUI();
+    }
+
     // static functions for manager page
 
     public static void setFeeInfo(double newFee, int days){
@@ -125,9 +144,9 @@ public class Driver {
     }
     
     public static void changeListingState(int propertyID, String newState){
-        // needs to change the property with id "propertyID" to the newState in the database
+        PropertyController pc = new PropertyController();
+        pc.changeStatus(propertyID, newState);
     }
-
 
     // manager functions
     public static int totalHousesListedManager(){
@@ -145,6 +164,9 @@ public class Driver {
         return src.getTotalActive();
     }
 
-    //need list of houses
+    public static ArrayList<Property> listRented(){
+        SummaryReportController src = new SummaryReportController();
+        return src.getHousesRented();
+    }
 
 }
