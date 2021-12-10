@@ -14,7 +14,7 @@ Management System (PRMS) that its minimal requirements include:
 is registered they should be able to pay certain fee and make their property posted online and be available ro
 renters to view it. The fee is certain amount in dollars for a fixed period of time (example 60 days).
 
-• RQ2: Regular renters don't need to login, and should be able to enter their search criteria such as: <br />
+• RQ2: Regular renters don't need to login, and should be able to enter their search criteria such as:
   - Apartment, attached/detached house, townhouse, etc. <br />
   - Number of bedrooms <br />
   - Number of bathrooms <br />
@@ -37,7 +37,7 @@ access to the renters, landlords, and properties information via company’s dat
 some sort of light database. Please notice your application need to access this database engine to save or
 retrieve properties, and registered customers, and landlord.
 
-• RQ7: Mangers should be able to ask for a periodical summary report that shows: <br />
+• RQ7: Mangers should be able to ask for a periodical summary report that shows:
   - Total number of houses listed in the period. Notice that some houses that are listed may not be active <br />
     anymore. It means some houses their posting period can be expired or landlords have cancelled their <br />
     posting, therefore the renters cannot view them anymore. <br />
