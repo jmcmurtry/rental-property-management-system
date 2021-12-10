@@ -189,15 +189,6 @@ public class ManagerGUI {
         String[] landlordAtts = {"Name", "Email", "ID"};
         String[] propertyAtts = {"Property ID", "Address", "Type", "Beds", "Baths", "Furnished?", "Quadrant", "Landlord ID", "Rent Price ($)", "Fee Expiry Date", "Status"};
 
-        // String[][] mockRenter = {   {"Harry", "harry@gmail.com", "123"}, 
-        //                             {"Athena", "athena@yahoo.com", "456"}};
-
-        // String[][] mockLandlord = { {"Arindam", "arindam@gmail.com", "789"},
-        //                             {"John", "john@hotmail.com", "420"}};
-
-        // String[][] mockProp = {     {"Bruhdale", "House", "2", "2", "true", "SW", "789", "2022-01-01"},
-        //                             {"Bro st", "Apartment", "1", "1", "false", "NW", "789", "2022-01-21"},
-        //                             {"mac hall", "Townhouse", "2", "1", "false", "NE", "420", "2022-03-01"}};
         ArrayList <RegisteredRenter> allRenters = Driver.getAllRentersManager();
         Object [][] rentersList = new Object [allRenters.size()][3];
         for(int i = 0; i < allRenters.size(); i++){

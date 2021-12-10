@@ -72,7 +72,7 @@ public class LoginGUI {
                 authenticated = Driver.authenticateLogin(userLoginType, email, password);
                 if(authenticated == true){
                     if(userLoginType.equals("Renter")){
-                        Driver.renterLoginButtonPressed();
+                        Driver.renterLoginButtonPressed(email);
                     }
                     else if(userLoginType.equals("Landlord")){
                         Driver.landlordLoginButtonPressed(email);

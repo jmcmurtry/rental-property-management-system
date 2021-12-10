@@ -1,6 +1,6 @@
 package view;
 
-import model.Property;
+import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -25,13 +25,14 @@ public class LandlordGUI {
     private JFrame frame = new JFrame("Landlord Menu");
     private JPanel panel = new JPanel();
 
-    private JPanel menuPanel, registerPanel, paymentPanel, listingStatePanel;
+    private JPanel menuPanel, registerPanel, paymentPanel, listingStatePanel, emailPanel;
 
     private JLabel welcomeLabel, propertyLabel, addressLabel, typeOps, bedOps, bathOps, furnOps, quadOps, rentLabel, paymentIDLabel;
     private JLabel paymentLabel, paymentTitleLabel, paymentFeeLabel, paymentDaysLabel, paymentRegistrationLabel, paymentRegistrationFeeLabel;
     private JLabel listingTitleLabel, listingIDLabel, listingLabel;
 
-    private JButton registerButton, submitButton, propertyButton, paymentButton, paymentMenuButton, changeListingButton, backButton1, backButton2, backButton3, backButton4, stateChangeButton;
+    private JButton registerButton, submitButton, propertyButton, paymentButton, paymentMenuButton, changeListingButton, backButton1; 
+    private JButton backButton2, backButton3, backButton4, backButton5, stateChangeButton, checkEmailsButton;
 
     private JTextField addressText, rentText, paymentText, paymentRegistrationText, paymentIDText, listingIDText;
 
@@ -94,7 +95,16 @@ public class LandlordGUI {
                 layout.show(panel, "4");
             }
         });          
-        menuPanel.add(changeListingButton);                    
+        menuPanel.add(changeListingButton);    
+
+        checkEmailsButton = new JButton("View Emails");
+        checkEmailsButton.setBounds(10, 170, 250, 25); 
+        checkEmailsButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(panel, "5");
+            }
+        });          
+        menuPanel.add(checkEmailsButton);                            
 
         // intializing the property registration panel and adding the necessary components
         registerPanel = new JPanel();
@@ -341,6 +351,47 @@ public class LandlordGUI {
         });
         listingStatePanel.add(backButton4);
 
+        // panel for viewing emails
+
+        emailPanel = new JPanel();
+
+        BoxLayout bl = new BoxLayout(emailPanel, BoxLayout.Y_AXIS);
+        emailPanel.setLayout(bl);
+
+        String[] emailAtts = {"Email ID", "Renter Email", "Property ID", "Message"};
+
+        ArrayList<Email> allEmails = Driver.retrieveAllEmails(landlordID);
+
+        Object [][] emailList = new Object [allEmails.size()][4];
+
+        for(int i = 0; i < allEmails.size(); i++){
+            int j = 0;
+            emailList[i][j] = allEmails.get(i).getEmailId();
+            j++;
+            emailList[i][j] = allEmails.get(i).getRenterEmail();
+            j++;          
+            emailList[i][j] = allEmails.get(i).getPropertyID();
+            j++;
+            emailList[i][j] = allEmails.get(i).getMessage();         
+        }
+
+        JTable table = new JTable(emailList, emailAtts);
+        table.setBounds(30, 40, 200, 300);
+
+        JScrollPane scrollPane = new JScrollPane(table); 
+
+        emailPanel.add(scrollPane);       
+
+        backButton5 = new JButton("Back to menu");
+        backButton5.setBounds(30, 400, 150, 25);
+        backButton5.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                layout.show(panel, "1");
+            }
+        });
+        emailPanel.add(backButton5);
+
+
         // initialize the card layout and add panels so that users can move between pages 
         layout = new CardLayout();
         panel.setLayout(layout);
@@ -348,6 +399,7 @@ public class LandlordGUI {
         panel.add(registerPanel, "2");
         panel.add(paymentPanel, "3");
         panel.add(listingStatePanel, "4");
+        panel.add(emailPanel, "5");
         layout.show(panel, "1");        
     }
 }

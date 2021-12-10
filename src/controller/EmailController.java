@@ -19,14 +19,14 @@ public class EmailController extends AppController {
         super();
     }
 
-    public void sendEmail(String RenterEmail, int PropertyID, String message) {
+    public void sendEmail(String renterEmail, int propertyID, String message) {
         try {
-            int landlordID = getLandlordIDFromProperty(PropertyID);
+            int landlordID = getLandlordIDFromProperty(propertyID);
             String query = "INSERT INTO email(landlordID, renterEmail, propertyID, message) VALUES(?, ?, ?, ?)";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.setInt(1, landlordID);
-            myStmt.setString(2, RenterEmail);
-            myStmt.setInt(3, PropertyID);
+            myStmt.setString(2, renterEmail);
+            myStmt.setInt(3, propertyID);
             myStmt.setString(4, message);
             myStmt.executeUpdate();
             myStmt.close();

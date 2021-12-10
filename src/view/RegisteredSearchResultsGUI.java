@@ -20,18 +20,23 @@ public class RegisteredSearchResultsGUI {
 
     private JFrame frame = new JFrame();
     private JTable table;
+    private String renterEmail;
 
-    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList){
+    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList, String email){
 
         JPanel panel = new JPanel();
+
+        renterEmail = email;
 
         BoxLayout bLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(bLayout);          
 
-        Object[][] data = new Object[PropertyList.size()][7];
+        Object[][] data = new Object[PropertyList.size()][8];
 
         for(int i = 0; i < PropertyList.size(); i++){
           int j = 0;
+          data[i][j] = PropertyList.get(i).getID();
+          j++;          
           data[i][j] = PropertyList.get(i).getAddress();
           j++;
           data[i][j] = PropertyList.get(i).getType();
@@ -47,7 +52,7 @@ public class RegisteredSearchResultsGUI {
           data[i][j] = PropertyList.get(i).getRentPrice();
         }
 
-        String[] cNames = {"Address", "Property Type", "Beds", "Baths", "Funished?", "Quadrant", "Rent Price ($)"};
+        String[] cNames = {"Property ID", "Address", "Property Type", "Beds", "Baths", "Funished?", "Quadrant", "Rent Price ($)"};
           
         table = new JTable(data, cNames);
         table.setBounds(30, 40, 200, 300);
@@ -58,7 +63,7 @@ public class RegisteredSearchResultsGUI {
         backButton1.setBounds(30, 400, 150, 25);
         backButton1.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                Driver.backToRegisteredRenterMenu();
+                Driver.backToRegisteredRenterMenu(renterEmail);
                 frame.dispose();
             }
         });

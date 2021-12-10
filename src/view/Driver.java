@@ -19,8 +19,6 @@ import java.util.ArrayList;
 public class Driver {
 
     // static AppController theController = AppController.getInstance();
-    private static double fee = 30;
-    private static int numberOfDays = 60;
 
     // static functions for the login page
 
@@ -35,8 +33,8 @@ public class Driver {
         return uc.validateUser(userLoginType, email, password); // return value from controller function
     }
 
-    public static void renterLoginButtonPressed(){
-        new RenterGUI();
+    public static void renterLoginButtonPressed(String email){
+        new RenterGUI(email);
     }
 
     public static void landlordLoginButtonPressed(String landlordEmail){
@@ -108,7 +106,12 @@ public class Driver {
         return pc.getNumberOfFeeDays();
     }
 
-    // static functions for search page
+    public static ArrayList<Email> retrieveAllEmails(int landlordID){
+        EmailController ec = new EmailController();
+        return ec.retrieveEmails(landlordID);
+    }
+
+    // static functions for search and renter pages
 
     public static void getSearchResults(String propertyType, String noBeds, String noBaths, String furnished, String quadrant){
         // need to call a function that uses the above parameters
@@ -119,28 +122,31 @@ public class Driver {
         new SearchResultsGUI(PropertyList);
     }
 
-    public static void getRegisteredSearchResults(String propertyType, String noBeds, String noBaths, String furnished, String quadrant){
+    public static void getRegisteredSearchResults(String propertyType, String noBeds, String noBaths, String furnished, String quadrant, String email){
         // need to call a function that uses the above parameters
         // function should search through database for properties that match the search query
         // function should then return an ArrayList of type property called PropertyList containing all properties that match search criteria
         SearchController sc = new SearchController();
         ArrayList<Property> PropertyList = sc.performSearch(propertyType, noBeds, noBaths, furnished, quadrant);
-        new RegisteredSearchResultsGUI(PropertyList);
+        new RegisteredSearchResultsGUI(PropertyList, email);
     }    
 
-    public static void backToRegisteredRenterMenu(){
-        new RenterGUI();
+    public static void backToRegisteredRenterMenu(String email){
+        new RenterGUI(email);
     }
 
     public static void backToUnregisteredRenterMenu(){
         new SearchGUI();
     }
 
+    public static void sendEmailToLandlord(String renterEmail, int propertyID, String message){
+        EmailController ec = new EmailController();
+        ec.sendEmail(renterEmail, propertyID, message);
+    }
+
     // static functions for manager page
 
     public static void setFeeInfo(double newFee, int days){
-        fee = newFee;
-        numberOfDays = days;
         PaymentController pc = new PaymentController();
         pc.setFeeInfo(newFee, days);
     }
