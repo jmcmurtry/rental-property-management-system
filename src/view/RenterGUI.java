@@ -102,7 +102,7 @@ public class RenterGUI {
 
         // initializing searchPanel
 
-        String[] bedBathOptions = {"No preference", "1", "1+", "2", "2+", "3", "3+", "4", "4+"};
+        String[] bedBathOptions = {"No preference", "1", "2", "3", "4", "5", "6"};
         String[] propertyTypeOptions = {"No preference", "Apartment", "House", "Townhouse"};
         String[] furnishedOptions = {"No preference", "Yes", "No"};
         String[] quadrantOptions = {"No preference", "NW", "NE", "SW", "SE"};
