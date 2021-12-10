@@ -19,13 +19,13 @@ public class EmailController extends AppController {
         super();
     }
 
-    public void sendEmail(int RenterID, int PropertyID, String message) {
+    public void sendEmail(String RenterEmail, int PropertyID, String message) {
         try {
             int landlordID = getLandlordIDFromProperty(PropertyID);
-            String query = "INSERT INTO email(landlordID, renterID, propertyID, message) VALUES(?, ?, ?, ?)";
+            String query = "INSERT INTO email(landlordID, renterEmail, propertyID, message) VALUES(?, ?, ?, ?)";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.setInt(1, landlordID);
-            myStmt.setInt(2, RenterID);
+            myStmt.setString(2, RenterEmail);
             myStmt.setInt(3, PropertyID);
             myStmt.setString(4, message);
             myStmt.executeUpdate();
@@ -37,14 +37,13 @@ public class EmailController extends AppController {
 
     public ArrayList<Email> retrieveEmails(int landlordID) {
         ArrayList<Email> emails = new ArrayList<Email>();
-        UserController us = new UserController();
         try {
             String query = "SELECT * FROM EMAIL WHERE landlordID = ?";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.setInt(1, landlordID);
             ResultSet results = myStmt.executeQuery();
             while(results.next()){
-                emails.add(new Email(results.getInt("email_id"), landlordID, us.getRenterName(results.getInt("renterID")), results.getInt("propertyID"), results.getString("message") ));
+                emails.add(new Email(results.getInt("email_id"), landlordID, results.getString("renterEmail"), results.getInt("propertyID"), results.getString("message") ));
             }
             myStmt.close();
         }catch(Exception e) {

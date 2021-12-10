@@ -13,14 +13,14 @@ package model;
 public class Email {
     private int emailId;
     private int landlordID;
-    private String renterName;
+    private String renterEmail;
     private int propertyID;
     private String message;
 
     public Email(int email, int landlord, String renter, int property, String message){
         this.emailId = email;
         this.landlordID = landlord;
-        this.renterName = renter;
+        this.renterEmail = renter;
         this.propertyID = property;
         this.message = message;
     }
@@ -33,8 +33,8 @@ public class Email {
         return this.landlordID;
     }
 
-    public String getRenterName(){
-        return this.renterName;
+    public String getRenterEmail(){
+        return this.renterEmail;
     }
 
     public int getPropertyID(){
