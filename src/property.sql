@@ -75,7 +75,8 @@ VALUES
  PRIMARY KEY (ID),
  FOREIGN KEY (landlordID)references LANDLORD(landlord_id) on UPDATE CASCADE
  );
- INSERT INTO PROPERTY (address, type, paymentExpiry, status, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant, price, landLordID)
+
+INSERT INTO PROPERTY (address, type, paymentExpiry, status, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant, price, landLordID)
 VALUES
 ('69 Green Ave','Townhouse','2020-09-07','Active', 3,	2,	0,	'NE',	1500,	'1'),
 ('909 Planters Street','House', '2020-08-19','Cancelled',2,	1,	1,	'SW',	5000,	'2'),
@@ -124,11 +125,11 @@ VALUES
  (
   email_id int NOT NULL auto_increment,
   landlordID int NOT NULL,
-  renterID int NOT NULL,
+  renterEmail varchar(25) NOT NULL,
   propertyID int NOT NULL,
   message char(120) NOT NULL,
   PRIMARY KEY (email_id),
   FOREIGN KEY (landlordID)references LANDLORD(landlord_id) on UPDATE CASCADE,
-  FOREIGN KEY (renterID)references RENTER(renter_id) on UPDATE CASCADE,
+  FOREIGN KEY (renterEmail)references RENTER(email) on UPDATE CASCADE,
   FOREIGN KEY (propertyID) references PROPERTY(ID) on UPDATE CASCADE
  );
