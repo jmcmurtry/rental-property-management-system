@@ -13,6 +13,12 @@ USE PROPERTY_MANAGEMENT;
  CONSTRAINT unique_email UNIQUE (email)
  );
 
+INSERT INTO Landlord(name, email, password)
+VALUES
+('Nick Richards','stv@gmail.com','fish'),
+('Harrison Pitt', 'pqr@gmail.com', 'cat'),
+('Mike Smith','abc@gmail.com','123');
+
 
  DROP TABLE IF EXISTS Manager;
  CREATE TABLE Manager
@@ -45,6 +51,12 @@ VALUES
  CONSTRAINT unique_email UNIQUE (email)
  );
 
+INSERT INTO Renter(name, email, password)
+VALUES
+('Gary Jones','gargar@gmail.com','rawr'),
+('Mikey Lee', 'mikey@gmail.com', 'wet'),
+('Katie Rox','kr@gmail.com','000');
+
 
  DROP TABLE IF EXISTS PROPERTY;
  CREATE TABLE PROPERTY
@@ -63,6 +75,13 @@ VALUES
  PRIMARY KEY (ID),
  FOREIGN KEY (landlordID)references LANDLORD(landlord_id) on UPDATE CASCADE
  );
+ INSERT INTO PROPERTY (address, type, paymentExpiry, status, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant, price, landLordID)
+VALUES
+('69 Green Ave','Townhouse','2020-09-07','Active', 3,	2,	0,	'NE',	1500,	'1'),
+('909 Planters Street','House', '2020-08-19','Cancelled',2,	1,	1,	'SW',	5000,	'2'),
+('39 Cran Circle', 'Apartment','2018-12-02','Suspended',4,	3,	0,	'SE',	1250,	'2'),
+('3 77 Front Street','Apartment','2019-11-07','Rented',3, 2,	0,	'NW',	1800,	'3'),
+('98 Dog Blvd', 'Townhouse','2021-10-09','Active',4, 1,	1,	'NE',	6500,	'1');
  
 
  DROP TABLE IF EXISTS PROPERTY_STATUS;
@@ -91,7 +110,7 @@ VALUES
  (
   table_ID int NOT NULL auto_increment,
   subrenter_id int,
-  type varchar(25);
+  type varchar(25),
   noOfBedrooms int,
   noOfBathrooms int,
   furnishing boolean,
@@ -99,7 +118,7 @@ VALUES
   PRIMARY KEY (table_ID),
   FOREIGN KEY (subrenter_id) references Renter(renter_id) on Update CASCADE
  );
- 
+
  DROP TABLE IF EXISTS EMAIL;
  CREATE TABLE EMAIL
  (
@@ -113,4 +132,3 @@ VALUES
   FOREIGN KEY (renterID)references RENTER(renter_id) on UPDATE CASCADE,
   FOREIGN KEY (propertyID) references PROPERTY(ID) on UPDATE CASCADE
  );
-
