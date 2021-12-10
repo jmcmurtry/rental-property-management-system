@@ -19,7 +19,7 @@ public class NotificationController extends AppController {
         super();
     }
     
-    public void insertSearchCriteria(int renter_email, String propertyType, String noBeds, String noBaths, String furnished, String quadrant){
+    public void insertSearchCriteria(String renter_email, String propertyType, String noBeds, String noBaths, String furnished, String quadrant){
         String query = "INSERT INTO subscribed_renters(subrenter_email, type, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant) VALUES " + renter_email;
         try{
             if(propertyType != "No preference"){
