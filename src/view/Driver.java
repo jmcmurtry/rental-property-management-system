@@ -171,4 +171,9 @@ public class Driver {
         return src.getHousesRented();
     }
 
+    public static String getLandlordName(int landlordID){
+        UserController uc = new UserController();
+        return uc.getLandlordName(landlordID);
+    }
+
 }

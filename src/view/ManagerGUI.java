@@ -255,7 +255,7 @@ public class ManagerGUI {
 
         for(int i = 0; i < rentedProps.size(); i++){
             int j = 0;
-            rentedHouse[i][j] = "Landlord Name";
+            rentedHouse[i][j] = Driver.getLandlordName(rentedProps.get(i).getLandlord());
             j++;
             rentedHouse[i][j] = rentedProps.get(i).getID();
             j++;          
@@ -263,11 +263,7 @@ public class ManagerGUI {
             j++;
         }
 
-
         String [] rentedHouseHeaders = {"Landlord Name", "Property ID", "Address"};
-        // String [][] rentedHouseMock = { {"Gojo", "300", "Glizzy st"},
-        //                                 {"Ron", "310", "tfdl"},
-        //                                 {"Arule", "340", "Spooder"}};
 
         JLabel x = new JLabel(xs);
         x.setBounds(30, 30, 400, 25);
