@@ -221,3 +221,5 @@ public class Property {
     public String getStatus(){
         return this.propertyStatus;
     }
+
+}

@@ -20,22 +20,23 @@ public class NotificationController extends AppController {
     }
     
     public void insertSearchCriteria(String renter_email, String propertyType, String noBeds, String noBaths, String furnished, String quadrant){
-        String query = "INSERT INTO subscribed_renters(subrenter_email, type, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant) VALUES " + renter_email;
+        removeSubscription(renter_email);
+        String query = "INSERT INTO subscribed_renters(subrenter_email, type, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant) VALUES ('" + renter_email + "'";
         try{
             if(propertyType != "No preference"){
-                query = query + ", " + propertyType;        
+                query = query + ", '" + propertyType + "'";        
             }else if (propertyType == "No preference") {
-            	query = query + ", " + null; 
+            	query = query + ", NULL"; 
             }
             if(noBeds != "No preference"){
             	query = query + ", " + noBeds;  
             	}else if (noBeds == "No preference") {
-                	query = query + ", " + null; 
+                	query = query + ", NULL"; 
                 }
             if(noBaths != "No preference"){
             	query = query + ", " + noBaths;  
             }else if (noBaths == "No preference") {
-            	query = query + ", " + null; 
+            	query = query + ", NULL"; 
             }
             if(furnished != "No preference"){
             	if(furnished == "No") {
@@ -43,12 +44,12 @@ public class NotificationController extends AppController {
             	}else if(furnished == "Yes")
             	query = query + ", " + 1;
             }else if (furnished == "No preference") {
-            	query = query + ", " + null; 
+            	query = query + ", NULL"; 
             }
             if(quadrant != "No preference"){   
-            	query = query + ", " + quadrant;
+            	query = query + ", '" + quadrant + "')";
             }else if (quadrant == "No preference") {
-            	query = query + ", " + null; 
+            	query = query + ", NULL)"; 
             }    
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.executeUpdate();
@@ -71,23 +72,23 @@ public class NotificationController extends AppController {
         ArrayList<Property> subResults = new ArrayList<Property>();
         String query = "SELECT * FROM property WHERE status = 'Active'";
         try{
-            if(propertyType != null){
+            if(propertyType != "NULL"){
                 query = query + " and type = '" + propertyType + "'";
             }
-            if(noBeds != null){
+            if(noBeds != "NULL"){
                 query = query + " and noOfBedrooms = " + noBeds;
             }
-            if(noBaths != null){
+            if(noBaths != "NULL"){
                 query = query + " and noOfBathrooms = " + noBaths;
             }
-            if(furnished != null){
+            if(furnished != "NULL"){
                 if(furnished == "No"){
                     query = query + " and furnishing = 0";
                 }else if(furnished == "Yes"){
                     query = query + " and furnishing = 1";
                 }
             }
-            if(quadrant != null){
+            if(quadrant != "NULL"){
                 query = query + " and cityQuadrant = '" + quadrant + "'";
             }
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
@@ -103,16 +104,33 @@ public class NotificationController extends AppController {
         return subResults;
     }
 
-    public void removeSubscription(int renter_id) {
+    public void removeSubscription(String email) {
         try{
-            String query = "DELETE FROM subscribed_renters WHERE subrenter_id = ?";
+            String query = "DELETE FROM subscribed_renters WHERE subrenter_email = ?";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
-            myStmt.setString(1, Integer.toString(renter_id));
+            myStmt.setString(1, email);
             myStmt.executeUpdate();
             myStmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();   	
         }
+    }
+
+
+    public ArrayList<Property> getSubscriptionSearch(String email){
+        ArrayList<Property> subResults = new ArrayList<Property>();
+        try{
+            String query = "SELECT * FROM subscribed_renters WHERE subrenter_email =  ?";
+            PreparedStatement myStmt = dbConnecter.prepareStatement(query);
+            myStmt.setString(1, email);
+            ResultSet results = myStmt.executeQuery();
+            if(!results.next()){
+                subResults = performSubscriptionSearch(results.getString("type"), Integer.toString(results.getInt("noOfBedrooms")), Integer.toString(results.getInt("noOfBathooms")), Boolean.toString(results.getBoolean("furnishing")), results.getString("quadrant"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return subResults;
     }
     
 }

@@ -12,9 +12,9 @@ package model;
 
 public class Search {
     private String propertyType;
-    private int noBed;
-    private int noBath;
-    private boolean isFurnished;
+    private String noBed;
+    private String noBath;
+    private String isFurnished;
     private String quadrant;
 
     
@@ -32,7 +32,7 @@ public class Search {
     * @param furn
     * @param quad
     */
-    public Search(String type, int bed, int bath, boolean furn, String quad){
+    public Search(String type, String bed, String bath, String furn, String quad){
         this.propertyType = type;
         this.noBed = bed;
         this.noBath = bath;
@@ -52,7 +52,7 @@ public class Search {
      * Setter for the number of beds in a property
      * @param bed
      */
-    public void setBed(int bed){
+    public void setBed(String bed){
         this.noBed = bed;
     }
     
@@ -60,7 +60,7 @@ public class Search {
      * Setter for the number of bathrooms in a property
      * @param bath
      */
-    public void setBath(int bath){
+    public void setBath(String bath){
         this.noBath = bath;
     }
 
@@ -68,7 +68,7 @@ public class Search {
      * Setter for the boolean furnished. If a property is furnised or not
      * @param furn
      */
-    public void setFurnished(boolean furn){
+    public void setFurnished(String furn){
         this.isFurnished = furn;
     }
 
@@ -91,21 +91,21 @@ public class Search {
      * Getter of the number of bedrooms in a property
      * @return an int correspong to the number of beds in the property
      */
-    public int getBed(){
+    public String getBed(){
         return this.noBed;
     }
     /**
      * Getter of the number of bathrooms in a property
      * @return an int corresponding to he number of beds in the property
      */
-    public int getBath(){
+    public String getBath(){
         return this.noBath;
     }
     /**
      * Getter of the isFurnished 
      * @return a boolean corresponding to the isFurnished of the property
      */
-    public boolean getFurnished(){
+    public String getFurnished(){
         return this.isFurnished;
     }
     /**

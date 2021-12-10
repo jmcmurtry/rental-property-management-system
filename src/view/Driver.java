@@ -196,4 +196,18 @@ public class Driver {
         return pc.getAllProperties();
     }
 
+    public static void addSubSearch(Search search, String email){
+        // need to call a function that uses the above parameters
+        // function should search through database for properties that match the search query
+        // function should then return an ArrayList of type property called PropertyList containing all properties that match search criteria
+        NotificationController nc = new NotificationController();
+        nc.insertSearchCriteria(email, search.getType(), search.getBed(), search.getBath(), search.getFurnished(), search.getQuadrant());
+    }
+
+    public static ArrayList<Property> performSubSearch(String email){
+        NotificationController nc = new NotificationController();
+        ArrayList<Property> found = nc.getSubscriptionSearch(email);
+        return found;
+    }
+
 }

@@ -81,7 +81,7 @@ public class RegisteredSearchResultsGUI {
         JButton subscribe = new JButton("Subscribe to this search");
         subscribe.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                
+                Driver.addSubSearch(s, email);
                 JOptionPane.showMessageDialog(frame, "You just subscribed to this search criteria");
             }
         });

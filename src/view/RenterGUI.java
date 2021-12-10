@@ -51,7 +51,7 @@ public class RenterGUI {
     
     private static String renterEmail;
 
-    private static ArrayList<Property> subscribedProperties;
+    private static ArrayList<Property> subscribedProperties = new ArrayList<Property>();
     
     /**
     * Constructor for the RenterGUI. Creates the GUI and displays it to the user.
@@ -97,7 +97,7 @@ public class RenterGUI {
         subscriptionsButton.setBounds(10, 80, 200, 25); 
         subscriptionsButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                subscribedProperties = Driver.performSubsearch(renterEmail);                
+                subscribedProperties = Driver.performSubSearch(renterEmail);                
                 layout.show(panel, "3");
             }
         });      
@@ -198,29 +198,32 @@ public class RenterGUI {
         subscriptionsPanel = new JPanel();
         subscriptionsPanel.setLayout(null);
 
-        BoxLayout bLayout = new BoxLayout(subscriptionsPanel, BoxLayout.Y_AXIS);
-        subscriptionsPanel.setLayout(bLayout);          
+        if(!subscribedProperties.isEmpty()){
+            BoxLayout bLayout = new BoxLayout(subscriptionsPanel, BoxLayout.Y_AXIS);
+            subscriptionsPanel.setLayout(bLayout);          
 
-        Object[][] subscribedResults = new Object[subscribedProperties.size()][8];
+            Object[][] subscribedResults = new Object[subscribedProperties.size()][8];
 
-        for(int i = 0; i < subscribedProperties.size(); i++){
-          int j = 0;
-          subscribedResults [i][j] = subscribedProperties.get(i).getID();
-          j++;          
-          subscribedResults [i][j] = subscribedProperties.get(i).getAddress();
-          j++;
-          subscribedResults [i][j] = subscribedProperties.get(i).getType();
-          j++;
-          subscribedResults [i][j] = subscribedProperties.get(i).getBed();
-          j++;
-          subscribedResults [i][j] = subscribedProperties.get(i).getBath();
-          j++;
-          subscribedResults [i][j] = subscribedProperties.get(i).getFurnished();
-          j++;
-          subscribedResults [i][j] = subscribedProperties.get(i).getQuadrant();
-          j++;
-          subscribedResults [i][j] = subscribedProperties.get(i).getRentPrice();
-        }        
+            for(int i = 0; i < subscribedProperties.size(); i++){
+                int j = 0;
+                subscribedResults [i][j] = subscribedProperties.get(i).getID();
+                j++;          
+                subscribedResults [i][j] = subscribedProperties.get(i).getAddress();
+                j++;
+                subscribedResults [i][j] = subscribedProperties.get(i).getType();
+                j++;
+                subscribedResults [i][j] = subscribedProperties.get(i).getBed();
+                j++;
+                subscribedResults [i][j] = subscribedProperties.get(i).getBath();
+                j++;
+                subscribedResults [i][j] = subscribedProperties.get(i).getFurnished();
+                j++;
+                subscribedResults [i][j] = subscribedProperties.get(i).getQuadrant();
+                j++;
+                subscribedResults [i][j] = subscribedProperties.get(i).getRentPrice();
+            }   
+        }
+                 
 
         JButton backButton3 = new JButton("Back to menu");
         backButton3.setBounds(30, 400, 150, 25);
