@@ -91,6 +91,7 @@ VALUES
  (
   table_ID int NOT NULL auto_increment,
   subrenter_id int,
+  type varchar(25);
   noOfBedrooms int,
   noOfBathrooms int,
   furnishing boolean,
