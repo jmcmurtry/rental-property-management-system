@@ -50,6 +50,8 @@ public class RenterGUI {
     private JButton searchPropertyButton;    
     
     private static String renterEmail;
+
+    private static ArrayList<Property> subscribedProperties;
     
     /**
     * Constructor for the RenterGUI. Creates the GUI and displays it to the user.
@@ -95,6 +97,7 @@ public class RenterGUI {
         subscriptionsButton.setBounds(10, 80, 200, 25); 
         subscriptionsButton.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                subscribedProperties = Driver.performSubsearch(renterEmail);                
                 layout.show(panel, "3");
             }
         });      
@@ -194,8 +197,6 @@ public class RenterGUI {
 
         subscriptionsPanel = new JPanel();
         subscriptionsPanel.setLayout(null);
-
-        ArrayList<Property> subscribedProperties = Driver.performSubsearch(renterEmail);
 
         BoxLayout bLayout = new BoxLayout(subscriptionsPanel, BoxLayout.Y_AXIS);
         subscriptionsPanel.setLayout(bLayout);          
