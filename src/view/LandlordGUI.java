@@ -41,8 +41,13 @@ public class LandlordGUI {
     private static String fee;
     private static String numberOfDays;
 
+    /**
+    * Constructor for the LandlordGUI. Creates the GUI.
+    * @param landlordID : integer that represents the landlord id
+    */
     public LandlordGUI(int landlordID){
 
+        // initialize the fee information
         fee = Driver.getPaymentFee();
         numberOfDays = Driver.getNumberOfFeeDays();      
 
@@ -53,6 +58,7 @@ public class LandlordGUI {
         frame.setVisible(true);            
 
         // initializing the menu panel and adding buttons
+
         menuPanel = new JPanel();
         menuPanel.setLayout(null);
 
@@ -107,6 +113,7 @@ public class LandlordGUI {
         menuPanel.add(checkEmailsButton);                            
 
         // intializing the property registration panel and adding the necessary components
+
         registerPanel = new JPanel();
         registerPanel.setLayout(null);
 
@@ -294,7 +301,7 @@ public class LandlordGUI {
         });
         paymentPanel.add(backButton2);     
 
-        // panel for changing listing state
+        // panel for the landlord ability to change listing state
 
         listingStatePanel = new JPanel();
         listingStatePanel.setLayout(null);
@@ -391,8 +398,7 @@ public class LandlordGUI {
         });
         emailPanel.add(backButton5);
 
-
-        // initialize the card layout and add panels so that users can move between pages 
+        // initialize the card layout and add panels so that users can move between pages properly
         layout = new CardLayout();
         panel.setLayout(layout);
         panel.add(menuPanel, "1");
