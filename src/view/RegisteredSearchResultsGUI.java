@@ -24,16 +24,13 @@ public class RegisteredSearchResultsGUI {
     private JTable table;
     private String renterEmail;
 
-<<<<<<< HEAD
-    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList, String email, Search s){
-=======
     /**
     * Constructor for the RegisteredSearchResultsGUI. Creates the GUI and displays it to the user.
     * @param PropertyList : an ArrayList of type Property that holds all properties that fall within search criteria
     * @param email : contains the renters email
-    */
-    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList, String email){
->>>>>>> 13a85c8fcb3eb36576472db755877f40338d7398
+    * @param s : search object that holds renter search criteria
+    */    
+    public RegisteredSearchResultsGUI(ArrayList<Property> PropertyList, String email, Search s){
 
         // initializing the GUI components
         JPanel panel = new JPanel();
