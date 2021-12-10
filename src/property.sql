@@ -85,3 +85,16 @@ VALUES
  
  INSERT INTO fee_info(fee, numDays) 
  VALUES (30, 60);
+ 
+ DROP TABLE IF EXISTS subscribed_renters;
+ CREATE TABLE subscribed_renters
+ (
+  table_ID int NOT NULL auto_increment,
+  subrenter_id int,
+  noOfBedrooms int,
+  noOfBathrooms int,
+  furnishing boolean,
+  cityQuadrant char(2),
+  PRIMARY KEY (table_ID),
+  FOREIGN KEY (subrenter_id) references Renter(renter_id) on Update CASCADE
+ );
