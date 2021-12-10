@@ -20,10 +20,17 @@ import java.util.ArrayList;
 
 public class SearchResultsGUI {
 
+    // private member variables to hold GUI components
     private JFrame frame = new JFrame();
     private JTable table;
 
+    /**
+    * Constructor for the SearchResultsGUI. Creates the GUI and displays it to the user.
+    * @param PropertyList : an ArrayList of type Property that holds all properties that fall within search criteria
+    */
     public SearchResultsGUI(ArrayList<Property> PropertyList){
+
+        // initializing the GUI components and displaying them on screen
 
         JPanel panel = new JPanel();
 
@@ -66,6 +73,7 @@ public class SearchResultsGUI {
         });
         panel.add(backButton1);             
 
+        // adding elements to the frame and configuring the display
         frame.add(panel);
         panel.add(scrollPane);
         frame.setSize(750, 750);
