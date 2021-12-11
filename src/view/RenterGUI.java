@@ -222,8 +222,16 @@ public class RenterGUI {
                 j++;
                 subscribedResults [i][j] = subscribedProperties.get(i).getRentPrice();
             }   
+        
+        String[] cNames = {"Property ID", "Address", "Property Type", "Beds", "Baths", "Funished?", "Quadrant", "Rent Price ($)"};
+        
+        JTable table = new JTable(subscribedResults, cNames);
+        table.setBounds(30, 40, 200, 300);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        subscriptionsPanel.add(scrollPane);
         }
-                 
 
         JButton backButton3 = new JButton("Back to menu");
         backButton3.setBounds(30, 400, 150, 25);
