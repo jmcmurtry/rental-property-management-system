@@ -53,9 +53,9 @@ VALUES
 
 INSERT INTO Renter(name, email, password)
 VALUES
-('Gary Jones','gargar@gmail.com','rawr'),
-('Mikey Lee', 'mikey@gmail.com', 'wet'),
-('Katie Rox','kr@gmail.com','000');
+('Gary Jones','gargar@gmail.com','hi'),
+('Mikey Lee', 'mikey@gmail.com', 'dog'),
+('Katie Rox','kr@gmail.com','cat');
 
 
  DROP TABLE IF EXISTS PROPERTY;
@@ -78,22 +78,13 @@ VALUES
 
 INSERT INTO PROPERTY (address, type, paymentExpiry, status, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant, price, landLordID)
 VALUES
-('69 Green Ave','Townhouse','2020-09-07','Active', 3,	2,	0,	'NE',	1500,	'1'),
-('909 Planters Street','House', '2020-08-19','Cancelled',2,	1,	1,	'SW',	5000,	'2'),
-('39 Cran Circle', 'Apartment','2018-12-02','Suspended',4,	3,	0,	'SE',	1250,	'2'),
-('3 77 Front Street','Apartment','2019-11-07','Rented',3, 2,	0,	'NW',	1800,	'3'),
-('98 Dog Blvd', 'Townhouse','2021-10-09','Active',4, 1,	1,	'NE',	6500,	'1');
+('69 Green Ave','Townhouse','2020-09-07','Active', 3,	2,	0,	'NE',	1500,	1),
+('909 Planters Street','House', '2020-08-19','Suspended',2,	1,	1,	'SW',	5000,	3),
+('39 Cran Circle', 'Apartment','2018-12-02','Active',4,	3,	0,	'SE',	1250,	2),
+('3 77 Front Street','Apartment','2019-11-07','Rented',3, 2,	0,	'NW',	1800,	2),
+('98 Dog Blvd', 'Townhouse','2021-10-09','Cancelled',4, 1,	1,	'NE',	6500,	1);
  
-
- DROP TABLE IF EXISTS PROPERTY_STATUS;
- CREATE TABLE PROPERTY_STATUS
- (
-  property_id int NOT NULL,
-  status char(12) NOT NULL,
-  PRIMARY KEY (property_id),
-  FOREIGN KEY (property_id) references PROPERTY(ID) on UPDATE CASCADE
- );
-
+ 
  DROP TABLE IF EXISTS FEE_INFO;
  CREATE TABLE FEE_INFO
  (
@@ -110,14 +101,15 @@ VALUES
  CREATE TABLE subscribed_renters
  (
   table_ID int NOT NULL auto_increment,
-  subrenter_id int,
+  subrenter_email varchar(25) NOT NULL,
   type varchar(25),
   noOfBedrooms int,
   noOfBathrooms int,
   furnishing boolean,
   cityQuadrant char(2),
   PRIMARY KEY (table_ID),
-  FOREIGN KEY (subrenter_id) references Renter(renter_id) on Update CASCADE
+  FOREIGN KEY (subrenter_email) references Renter(email) on Update CASCADE,
+  CONSTRAINT unique_renter UNIQUE (subrenter_email)
  );
 
  DROP TABLE IF EXISTS EMAIL;

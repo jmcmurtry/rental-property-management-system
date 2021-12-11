@@ -33,9 +33,6 @@ public class Landlord extends UserProfile{
         properties.add(p);
     }
 
-    
-    public void addProperty(String type, int bed, int bath, boolean furn, String quad, String email){
-    }
 
 	/**
 	 * Method to remove the property corresponding to the id passed in from the ArrayList of properties
@@ -48,10 +45,5 @@ public class Landlord extends UserProfile{
             }
         }
     }
-
-    public void payFee(int propId){
-        // create payment object and set to that properties paymentInfo
-    }
-
 }
 

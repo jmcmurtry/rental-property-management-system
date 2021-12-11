@@ -14,11 +14,23 @@ import java.util.ArrayList;
 import model.Property;
 
 public class NotificationController extends AppController {
-
+    
+    /**
+    * Constructor - allows access to database
+    */
     public NotificationController(){
         super();
     }
     
+    /**
+    * Creates a new search criteria for a specific registered renter
+    * @param renter_email : the renters email
+    * @param propertyType : the propery type wanted
+    * @param noBeds : the number of bedrooms type wanted
+    * @param noBaths : the number of bathrooms type wanted
+    * @param furnished : whether the property is furnished or not
+    * @param quadrant : the quadrant of the property wanted
+    */
     public void insertSearchCriteria(String renter_email, String propertyType, String noBeds, String noBaths, String furnished, String quadrant){
         removeSubscription(renter_email);
         String query = "INSERT INTO subscribed_renters(subrenter_email, type, noOfBedrooms, noOfBathrooms, furnishing, cityQuadrant) VALUES ('" + renter_email + "'";
@@ -104,6 +116,10 @@ public class NotificationController extends AppController {
         return subResults;
     }
 
+    /**
+    * Deletes the search criteria of the specified renter
+    * @param email : the email of the renter 
+    */
     public void removeSubscription(String email) {
         try{
             String query = "DELETE FROM subscribed_renters WHERE subrenter_email = ?";
@@ -117,10 +133,15 @@ public class NotificationController extends AppController {
     }
 
 
+    /**
+    * Retrieves all properties that match the specified renters search criteria
+    * @param email : the email of the renter 
+    * @return : returns an ArrayList containing all the properties that match
+    */
     public ArrayList<Property> getSubscriptionSearch(String email){
         ArrayList<Property> subResults = new ArrayList<Property>();
         try{
-            String query = "SELECT * FROM subscribed_renters WHERE subrenter_email =  ?";
+            String query = "SELECT * FROM subscribed_renters WHERE subrenter_email = ? ";
             PreparedStatement myStmt = dbConnecter.prepareStatement(query);
             myStmt.setString(1, email);
             ResultSet results = myStmt.executeQuery();

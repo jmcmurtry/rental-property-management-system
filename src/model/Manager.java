@@ -38,12 +38,5 @@ public class Manager extends UserProfile{
 	 */
     public void changeFees(int newFee, Property p){
     }
-
-    // public void changePeriod(Date start, Date end, Property p){
-    // }
-
-    // public SummaryReport generateReport(Date start, Date end){
-    // }
-
 }
 
